@@ -1,0 +1,1 @@
+{{ $parameters['options'][$record[$key]] }}

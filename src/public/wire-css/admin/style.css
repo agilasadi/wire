@@ -1,0 +1,29 @@
+.a_n_search_input{
+    width: 50% !important;
+}
+
+.s_b_icons{
+    width: 1.1rem;
+    color: #acacac;
+    text-align: center;
+}
+
+.s_b_anchor:hover .s_b_icons{
+    color: #007bff;
+}
+
+.active .s_b_icons{
+    color: #0062cc;
+}
+
+@media (max-width: 991px) {
+}
+
+@media (max-width: 767px) {
+}
+
+@media (max-width: 576px) {
+    .a_n_search_input{
+        width: 74% !important;
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "rapkit/wire",
+    "description": "Create an admin panel for your Laravel Application.",
+    "authors": [
+        {
+            "name": "agilasadi",
+            "email": "newsma.95@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rapkit\\Wire\\WireServiceProvider",
+//                "Rapkit\\Wire\\Providers\\IdentifierCacheProvider"
+            ]
+        }
+    }
+}

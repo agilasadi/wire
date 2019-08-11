@@ -1,0 +1,1 @@
+{{ $record ? $record->count() : 0 }}
