@@ -1,7 +1,7 @@
-@extends('wire.layouts.admin_master')
+@extends('wire.views.layouts.admin_master')
 
 @section('content')
-@include('wire.includes.statistics')
+@include('wire.views.includes.statistics')
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
     <h2>Section title</h2>
@@ -136,5 +136,5 @@
 
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="{{ asset('application_js/admin/dashboard.js') }}"></script>
+    <script src="{{ asset('wire/wire-js/admin/dashboard.js') }}"></script>
 @endsection

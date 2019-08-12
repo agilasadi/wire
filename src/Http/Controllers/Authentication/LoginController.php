@@ -12,7 +12,7 @@ class LoginController extends Controller
 
     public function viewLogin()
     {
-        return view('wire.views.authentication.login');//wire.authentication.login
+        return view('wire.views.authentication.login');
     }
 
     public function attemptLogin(Request $request)
