@@ -6,7 +6,7 @@
                     <img src="{{ asset('application_images/welcome/asar.jpg') }}" style="width:1.26rem;"
                          class="rounded mr-2" alt="...">
                     <strong class="mr-auto">{{ @$toast_message['title'] }}</strong>
-                    <small class="text-muted ml-2"> {{ trans('message.now') }} </small>
+                    <small class="text-muted ml-2"> {{ trans('wire::message.now') }} </small>
                     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

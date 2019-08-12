@@ -22,7 +22,7 @@
 
     @yield('style')
 
-    <link rel="stylesheet" href="{{ asset('application_css/admin/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('wire/wire-css/admin/dashboard.css') }}">
 </head>
 <body>
 
@@ -35,12 +35,12 @@
             <div class="col-md-12 container-fluid">
             @yield('content')
             </div>
-{{--            @include('wire.includes.admin_footer')--}}
+{{--            @include('wire.views.includes.admin_footer')--}}
         </main>
     </div>
 </div>
-@include('wire.includes.user_actions')
-@include('wire.includes.toast_message')
+@include('wire.views.includes.user_actions')
+@include('wire.views.includes.toast_message')
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>

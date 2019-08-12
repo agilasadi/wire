@@ -56,8 +56,8 @@ class WireController extends BaseController
     {
         $toast_messages = [
             [
-                'message' => trans('message.' . $this->module_name . '_' . $action . '_success_' . $this->success),
-                'title' => trans('app.name')
+                'message' => trans('wire::message.' . $this->module_name . '_' . $action . '_success_' . $this->success),
+                'title' => trans('wire::app.name')
             ]
         ];
 

@@ -17,7 +17,7 @@
             ])
             @endcomponent
 
-            <button type="submit" class="btn btn-primary">{{ trans('button_input.create') }}</button>
+            <button type="submit" class="btn btn-primary">{{ trans('wire::button_input.create') }}</button>
         </form>
     </div>
 @endsection

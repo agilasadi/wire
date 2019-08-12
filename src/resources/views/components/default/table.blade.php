@@ -10,7 +10,7 @@
                 @endif
             @endforeach
             <th>
-                <i class="fas fa-toolbox mr-2"></i>{{ trans('button_input.actions') }}
+                <i class="fas fa-toolbox mr-2"></i>{{ trans('wire::button_input.actions') }}
             </th>
         </tr>
         </thead>
@@ -77,5 +77,5 @@
         </tbody>
     </table>
 @else
-    <p class="text-center p-5 bg-light border rounded text-info h6"><i class="far fa-folder-open mr-2"></i> {{ trans('wire.nothing_to_show') }}</p>
+    <p class="text-center p-5 bg-light border rounded text-info h6"><i class="far fa-folder-open mr-2"></i> {{ trans('wire::wire.nothing_to_show') }}</p>
 @endif

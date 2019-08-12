@@ -5,7 +5,7 @@
 
 <div class="form-group">
     <div class="mb-4">
-        <label for="{{ $key }}">{{ trans('button_input.'.$key) }}</label>
+        <label for="{{ $key }}">{{ trans('wire::button_input.'.$key) }}</label>
         <textarea id="{{ $key }}" name="{{ $key }}">{{@$record}}</textarea>
         @if ($errors->has($key))
             <div class="invalid-feedback d-block">
@@ -20,7 +20,7 @@
 <script>
     var field_name = '{{ $key }}';
         $('#' + field_name).summernote({
-            placeholder: '{{ trans('button_input.'.@$key) }}',
+            placeholder: '{{ trans('wire::button_input.'.@$key) }}',
             tabsize: 2,
             height: 200
         });

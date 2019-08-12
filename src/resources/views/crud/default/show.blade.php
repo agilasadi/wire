@@ -54,7 +54,7 @@
                             <a href="{{ route('wire.create', strtolower(class_basename($identifier['sub_identifier'][$key]['identifier']))) }}{{ "?parent=".class_basename($identifier['main_identifier']['model'])."&id=".$data->id }}"
                                class="text-capitalize btn btn-primary font-weight-bold mr-1" role="button" aria-pressed="true">
 	                                <i class="fas fa-plus mr-1"></i>
-                                    {{ trans('button_input.create') }}
+                                    {{ trans('wire::button_input.create') }}
                             </a>
                         </span>
                     </p>

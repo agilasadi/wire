@@ -25,7 +25,7 @@
     'disk' => $field['disk']
     ])
         <h6 class="">
-            {{ trans('button_input.image') }}
+            {{ trans('wire::button_input.image') }}
         </h6>
     @endcomponent
 @endif

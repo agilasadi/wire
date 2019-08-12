@@ -40,7 +40,7 @@ class WireServiceProvider extends ServiceProvider
          * todo: Loading Wire Translations, this also has application name...
          * todo: ...which should be moved into config for better conventions.
          *
-         * ===> usage trans('wire::filename.key');
+         * ===> usage trans('wire::wire::filename.key');
          */
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'wire');
 

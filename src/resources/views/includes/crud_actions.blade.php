@@ -6,14 +6,14 @@
             <a href="{{ route('wire.create', $module) }}{{ @$parent }}" class="text-capitalize btn btn-primary font-weight-bold mr-1" role="button"
                aria-pressed="true">
 	            <i class="fas fa-plus mr-1"></i>
-                {{ trans('button_input.create') }}
+                {{ trans('wire::button_input.create') }}
                 {{ $module }}
             </a>
 
             <a href="{{ route('wire.recycle', $module) }}" class="text-capitalize btn btn-success font-weight-bold" role="button"
                aria-pressed="true">
 	            <i class="fas fa-recycle mr-1"></i>
-                {{ trans('button_input.recycle') }}
+                {{ trans('wire::button_input.recycle') }}
                 {{ $module }}
             </a>
         </span>

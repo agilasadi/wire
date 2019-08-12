@@ -7,14 +7,16 @@
                     Dashboard <span class="sr-only">(current)</span>
                 </a>
             </li>
-            @foreach(cache()->get('identifier_classes') as $class_key => $class_value)
-                <li class="nav-item">
-                    <a class="nav-link s_b_anchor" href="{{ route('wire.index', ['route' => $class_key]) }}">
-                        <i class="mr-2 s_b_icons fas fa-cubes"></i>
-                        {{ basename($class_value) }}
-                    </a>
-                </li>
-            @endforeach
+            @if(cache('identifier_classes'))
+                @foreach(cache('identifier_classes') as $class_key => $class_value)
+                    <li class="nav-item">
+                        <a class="nav-link s_b_anchor" href="{{ route('wire.index', ['route' => $class_key]) }}">
+                            <i class="mr-2 s_b_icons fas fa-cubes"></i>
+                            {{ basename($class_value) }}
+                        </a>
+                    </li>
+                @endforeach
+            @endif
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -53,8 +55,8 @@
             <div class="p-3">
                 <div class="d-flex border-top">
                     <p class="mb-0 mt-3 text-dark">&copy; {{ now()->year }}
-                        <b>{{ trans('app.name') }}</b> <br>
-                        <span class="small text-muted">{{ trans('heading.all_rights_reserved') }}</span>
+                        <b>{{ trans('wire::app.name') }}</b> <br>
+                        <span class="small text-muted">{{ trans('wire::heading.all_rights_reserved') }}</span>
                     </p>
                 </div>
             </div>
