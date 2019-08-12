@@ -9,6 +9,6 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        return view('wire.dashboard');
+        return view('wire.views.dashboard');
     }
 }

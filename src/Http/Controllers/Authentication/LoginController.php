@@ -58,7 +58,7 @@ class LoginController extends Controller
         }
         else
         {
-            $message = trans('authentication.credentials_does_not_match');
+            $message = trans('wire::authentication.credentials_does_not_match');
             return redirect()->back()->withErrors(['message' => $message]);
         }
     }
