@@ -1,5 +1,4 @@
 <?php
-
 Route::group(['namespace' => 'App\Wire\Http\Controllers', 'middleware' => 'web'], function () {
     Route::get('wire/login', 'Authentication\LoginController@viewLogin')->name('viewLogin');
     Route::post('wire/login', 'Authentication\LoginController@attemptLogin')->name('attemptLogin');

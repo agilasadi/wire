@@ -54,11 +54,11 @@ class LoginController extends Controller
     {
         if ($this->success)
         {
-            return redirect()->intended('wire/');
+            return redirect()->intended('wire/dashboard');
         }
         else
         {
-            $message = trans('wire::wire::authentication.credentials_does_not_match');
+            $message = trans('wire::authentication.credentials_does_not_match');
             return redirect()->back()->withErrors(['message' => $message]);
         }
     }

@@ -13,11 +13,11 @@ class CrudController extends WireController
      *
      * @var string
      */
-    public $index_view = 'wire.crud.default.index';
-    public $create_view = 'wire.crud.default.create';
-    public $show_view = 'wire.crud.default.show';
-    public $recycle_view = 'wire.crud.default.recycle';
-    public $edit_view = 'wire.crud.default.edit';
+    public $index_view = 'wire.views.crud.default.index';
+    public $create_view = 'wire.views.crud.default.create';
+    public $show_view = 'wire.views.crud.default.show';
+    public $recycle_view = 'wire.views.crud.default.recycle';
+    public $edit_view = 'wire.views.crud.default.edit';
 
     /**
      * Show route is being used after an item has been updated or created
@@ -49,11 +49,6 @@ class CrudController extends WireController
             $class_name = Cache::get('identifier_classes')[$route];
 
             $this->identifier = new $class_name;
-        }
-
-        else
-        {
-            //
         }
     }
 
