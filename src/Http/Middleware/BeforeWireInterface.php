@@ -22,6 +22,6 @@ class BeforeWireInterface
             return $next($request);
         }
 
-        return redirect()->route('viewLogin');
+        return redirect()->route('wire.login');
     }
 }

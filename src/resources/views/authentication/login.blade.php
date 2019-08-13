@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-	<form class="form-signin" method="POST" action="{{ route('attemptLogin') }}">
+	<form class="form-signin" method="POST" action="{{ route('wire.attemptLogin') }}">
         @csrf
 
 		<div class="text-center mb-4">
@@ -48,6 +48,6 @@
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		<p class="mt-5 mb-3 text-muted text-center">&copy; {{ now()->year }} <b>{{ trans('wire::app.name') }}</b></p>
+		<p class="mt-5 mb-3 text-muted text-center">&copy; {{ now()->year }} <b>{{ config('wire.name') }}</b></p>
 	</form>
 @endsection

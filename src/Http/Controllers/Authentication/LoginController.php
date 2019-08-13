@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public $success = false;
 
-    public function viewLogin()
+    public function login()
     {
         return view('wire.views.authentication.login');
     }

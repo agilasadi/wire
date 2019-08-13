@@ -13,7 +13,7 @@
             <small class="text-muted">{{ Auth::user()->email }}</small>
         </h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="{{ route('logout-admin') }}"
+        <a href="{{ route('wire.logout') }}"
            class="btn btn-outline-danger"><i class="fas mr-2 fa-sign-out-alt"></i>{{ trans('wire::authentication.sign_out') }}</a>
     </div>
 

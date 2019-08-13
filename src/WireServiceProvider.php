@@ -82,11 +82,11 @@ class WireServiceProvider extends ServiceProvider
 //            __DIR__ . '/Providers' => base_path('app/Wire/Providers'),
         ]);
 
-
-        // app('router')->aliasMiddleware('my-package-middleware', \My\Package\Middleware::class);
-        // vendor:publish to publish files for public use
-        // $this->publishes([
-        //     __DIR__.'/path/to/config/courier.php' => config_path('courier.php'),
-        // ]);
+        /**
+         * Wire config file
+         */
+        $this->publishes([
+            __DIR__.'/config/wire.php' => config_path('wire.php'),
+        ]);
     }
 }
