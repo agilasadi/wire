@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rapkit\\Wire\\": "packages/Rapkit/Wire/src",
+            "Rapkit\\Wire\\": "src",
             "App\\": "app/"
         }
     }
