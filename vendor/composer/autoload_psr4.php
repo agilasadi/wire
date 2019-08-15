@@ -6,4 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Rapkit\\Wire\\' => array($baseDir . '/packages/Rapkit/Wire/src'),
+    'App\\' => array($baseDir . '/app'),
 );
