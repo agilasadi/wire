@@ -11,7 +11,7 @@ class {{name}} extends BaseIdentifier
     public function fields()
     {
         return [
-        // model fields
+            {{fields}}
         ];
     }
 
