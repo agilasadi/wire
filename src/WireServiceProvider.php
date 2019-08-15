@@ -3,7 +3,6 @@
 namespace Rapkit\Wire;
 
 use Illuminate\Support\ServiceProvider;
-use rapkit\wire\Console\Commands\MakeIdentifier;
 
 class WireServiceProvider extends ServiceProvider
 {
@@ -75,7 +74,6 @@ class WireServiceProvider extends ServiceProvider
          */
         $this->publishes([
             __DIR__ . '/Identifiers' => base_path('app/Wire/Identifiers'),
-            //            __DIR__ . '/Providers' => base_path('app/Wire/Providers'),
         ]);
 
         /**
@@ -86,7 +84,7 @@ class WireServiceProvider extends ServiceProvider
         ]);
 
         $this->commands([
-           MakeIdentifier::class,
+           Console\Commands\MakeIdentifier::class,
         ]);
     }
 }
