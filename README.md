@@ -1,5 +1,6 @@
 # Wire
-Admin Panel for Laravel Applications
+###### Admin Panel for Laravel Applications
+
 
 Install The package By running
 
@@ -17,8 +18,12 @@ To create an **identifier** run:
 ```
 php artisan wire:identifier User
 ```
-An `identifier` is where you place your Model parameter to be using within **wire**
-**User** in this case is your Model name. If your model is located in an unusall Path, 
+An `identifier` is where you place your Model parameter to be used within **wire**.
+**User** in this case is your Model name. 
+
+Identifiers will be located in `App\Wire\Identifiers`
+
+If your model is located in an unusall Path, 
 you can configure that in `config\wire.php` by updating:
 
 ```   
