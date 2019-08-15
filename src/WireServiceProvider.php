@@ -1,6 +1,6 @@
 <?php
 
-namespace rapkit\wire;
+namespace Rapkit\Wire;
 
 use Illuminate\Support\ServiceProvider;
 use rapkit\wire\Console\Commands\MakeIdentifier;
