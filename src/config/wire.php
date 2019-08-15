@@ -17,5 +17,5 @@ return [
      *
      * Allows Wire to automatically discover available Model when an identifier is created
      */
-    'model_path' => 'App',
+    'model_path' => 'App\\',
 ];

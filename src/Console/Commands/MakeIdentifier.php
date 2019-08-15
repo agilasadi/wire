@@ -41,6 +41,7 @@ class MakeIdentifier extends Command
         }
 
         $stub = $this->getStub($this->argument('name'), $fields, $model);
+
         $path = app_path("Wire/Identifiers/" . $this->argument('name') . ".php");
 
         file_put_contents($path, $stub);
@@ -77,6 +78,6 @@ class MakeIdentifier extends Command
      */
     protected function getFields($model)
     {
-        return [];
+        return null;
     }
 }
