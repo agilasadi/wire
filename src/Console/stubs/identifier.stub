@@ -1,13 +1,44 @@
 <?php
 namespace App\Wire\Identifiers;
 
-
 class {{name}} extends BaseIdentifier
 {
+    /**
+     * --------------------------------------------------------------------------------------------
+     *  $title
+     * --------------------------------------------------------------------------------------------
+     *
+     * @param $title, field is what will be shown when the object is outputed in other models.
+     * If your Model has a more readable field such as name or title, you can define it here.
+     */
     public $title = 'id';
 
+    /**
+     * --------------------------------------------------------------------------------------------
+     *  $model
+     * --------------------------------------------------------------------------------------------
+     *
+     * Identifier requires the model name to be assigned to the @param $model
+     * If you create the identifier view wire:identifier command, Wire will attempt to pre assing
+     * model, if your model path is different, than you need to configure it in config\wire.php
+     * to properly assign for your Identifiers.
+     */
     public $model = "{{model}}";
 
+    /**
+     * --------------------------------------------------------------------------------------------
+     *  fields()
+     * --------------------------------------------------------------------------------------------
+     *
+     * You can define any parameter about the Model that you can see in the admin panel,
+     * including relationships in Model.
+     *
+     * It's always recommended for you to update your fields for a convenient output
+     *
+     * For detailed information about available fields types, and parameters please check
+     * documentation
+     *
+     */
     public function fields()
     {
         return [
@@ -15,6 +46,18 @@ class {{name}} extends BaseIdentifier
         ];
     }
 
+    /**
+     * --------------------------------------------------------------------------------------------
+     *  rules()
+     * --------------------------------------------------------------------------------------------
+     *
+     * You can define field rules in this function to be applied during update and create.
+     *
+     * But you are also free to write your rules inside the fields directly.
+     * Rules below will be overriding your rules within the fields, but some of the field types
+     * require rules within the field array.
+     * Check documentation for more details.
+     */
     public function rules()
     {
         return [];
