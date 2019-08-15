@@ -1,0 +1,20 @@
+<?php
+namespace App\Wire\Identifiers;
+
+
+class {{name}} extends BaseIdentifier
+{
+    public $title = 'id';
+
+    public $model = "";
+
+    public function fields()
+    {
+        return [];
+    }
+
+    public function rules()
+    {
+        return [];
+    }
+}

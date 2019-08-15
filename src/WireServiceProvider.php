@@ -3,6 +3,7 @@
 namespace rapkit\wire;
 
 use Illuminate\Support\ServiceProvider;
+use rapkit\wire\Console\Commands\MakeIdentifier;
 
 class WireServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,7 @@ class WireServiceProvider extends ServiceProvider
         /**
          * Register the service provider to cache identifiers.
          */
-//        $this->app->register('App\Wire\Providers\IdentifierCacheProvider');
+        //        $this->app->register('App\Wire\Providers\IdentifierCacheProvider');
     }
 
     /**
@@ -79,14 +80,18 @@ class WireServiceProvider extends ServiceProvider
          */
         $this->publishes([
             __DIR__ . '/Identifiers' => base_path('app/Wire/Identifiers'),
-//            __DIR__ . '/Providers' => base_path('app/Wire/Providers'),
+            //            __DIR__ . '/Providers' => base_path('app/Wire/Providers'),
         ]);
 
         /**
          * Wire config file
          */
         $this->publishes([
-            __DIR__.'/config/wire.php' => config_path('wire.php'),
+            __DIR__ . '/config/wire.php' => config_path('wire.php'),
+        ]);
+
+        $this->commands([
+           MakeIdentifier::class,
         ]);
     }
 }
