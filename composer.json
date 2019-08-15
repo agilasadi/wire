@@ -3,7 +3,7 @@
     "description": "Create an admin panel for your Laravel Application.",
     "authors": [
         {
-            "name": "agilasadi",
+            "name": "Agil Asadi",
             "email": "newsma.95@gmail.com"
         }
     ],
@@ -14,6 +14,12 @@
             "providers": [
                 "Rapkit\\Wire\\WireServiceProvider"
             ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Rapkit\\Wire\\": "packages/Rapkit/Wire/src",
+            "App\\": "app/"
         }
     }
 }
