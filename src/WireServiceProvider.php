@@ -18,11 +18,6 @@ class WireServiceProvider extends ServiceProvider
          * Register the wire middleware.
          */
         $this->app['router']->aliasMiddleware('wire_interface', \App\Wire\Middleware\BeforeWireInterface::class);
-
-        /**
-         * Register the service provider to cache identifiers.
-         */
-        //        $this->app->register('App\Wire\Providers\IdentifierCacheProvider');
     }
 
     /**
