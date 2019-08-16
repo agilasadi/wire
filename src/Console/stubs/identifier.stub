@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Wire\Identifiers;
 
 class {{name}} extends BaseIdentifier
