@@ -1,26 +1,26 @@
 {
-    "name": "rapkit/wire",
-    "description": "Create an admin panel for your Laravel Application.",
-    "authors": [
-        {
-            "name": "Agil Asadi",
-            "email": "newsma.95@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "doctrine/dbal": "2.9.2"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Rapkit\\Wire\\WireServiceProvider"
-            ]
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Rapkit\\Wire\\": "src"
-        }
+  "name": "rapkit/wire",
+  "description": "Create an admin panel for your Laravel Application.",
+  "authors": [
+    {
+      "name": "Agil Asadi",
+      "email": "newsma.95@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "doctrine/dbal": "2.9.2"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Rapkit\\Wire\\WireServiceProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Rapkit\\Wire\\": "src"
+    }
+  }
 }

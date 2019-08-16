@@ -84,7 +84,8 @@ class WireServiceProvider extends ServiceProvider
 		]);
 
 		$this->commands([
-			Console\Commands\MakeIdentifier::class
+			Console\Commands\MakeIdentifier::class,
+			Console\Commands\IdentifierLoad::class
 		]);
 	}
 }
