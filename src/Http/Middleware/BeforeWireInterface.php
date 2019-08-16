@@ -17,7 +17,8 @@ class BeforeWireInterface
 	public function handle($request, Closure $next)
 	{
 		//todo Check for the role once it's specified -refactor
-		if (Auth::check()) {
+		if (Auth::check())
+		{
 			return $next($request);
 		}
 
