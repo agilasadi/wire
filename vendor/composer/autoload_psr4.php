@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Rapkit\\Wire\\' => array($baseDir . '/packages/Rapkit/Wire/src'),
-    'App\\' => array($baseDir . '/app'),
+    'Rapkit\\Wire\\' => array($baseDir . '/src'),
+    'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib/Doctrine/DBAL'),
+    'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
+    'Doctrine\\Common\\' => array($vendorDir . '/doctrine/event-manager/lib/Doctrine/Common'),
 );

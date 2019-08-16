@@ -11,20 +11,30 @@ class ComposerStaticInitfeeb09d7668ca3d20d98e0da2c239941
         array (
             'Rapkit\\Wire\\' => 12,
         ),
-        'A' => 
+        'D' => 
         array (
-            'App\\' => 4,
+            'Doctrine\\DBAL\\' => 14,
+            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Rapkit\\Wire\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/packages/Rapkit/Wire/src',
+            0 => __DIR__ . '/../..' . '/src',
         ),
-        'App\\' => 
+        'Doctrine\\DBAL\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app',
+            0 => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL',
+        ),
+        'Doctrine\\Common\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
         ),
     );
 
