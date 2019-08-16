@@ -8,7 +8,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "doctrine/dbal": "2.9.2"
+    },
     "extra": {
         "laravel": {
             "providers": [
