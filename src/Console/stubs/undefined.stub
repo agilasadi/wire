@@ -1,0 +1,4 @@
+            '{{field_key}}' => [
+                'type' => 'text',
+                'available_in' => ['create', 'show']
+            ],

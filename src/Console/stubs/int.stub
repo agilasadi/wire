@@ -1,0 +1,5 @@
+            '{{field_key}}' => [
+                'type' => 'number',
+                'available_in' => ['index', 'create', 'show', 'edit'],
+                'rules' => 'required|max:1111111111'
+            ],
