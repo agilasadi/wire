@@ -1,6 +1,7 @@
 {
   "name": "rapkit/wire",
   "description": "Create an admin panel for your Laravel Application.",
+  "license": "MIT",
   "authors": [
     {
       "name": "Agil Asadi",
