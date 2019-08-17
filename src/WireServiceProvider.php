@@ -32,18 +32,11 @@ class WireServiceProvider extends ServiceProvider
 		$this->loadRoutesFrom(__DIR__ . '/routes/web.php');
 
 		/**
-		 * todo: Loading Wire Translations, this also has application name...
-		 * todo: ...which should be moved into config for better conventions.
-		 *
 		 * ===> usage trans('wire::filename.key');
 		 */
 		$this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'wire');
 
 		/**
-		 * loads views to be used
-		 * todo rename master blade in all of the views that extends to admin_master
-		 * todo rename image, crud_actions and user_actions view path in other views and controllers
-		 *
 		 * ===> usage wire::filename
 		 */
 		$this->loadViewsFrom(__DIR__ . "/resources/views", "wire");
@@ -84,6 +77,7 @@ class WireServiceProvider extends ServiceProvider
 		]);
 
 		$this->commands([
+			Console\Commands\IdentifierCache::class,
 			Console\Commands\MakeIdentifier::class,
 			Console\Commands\IdentifierLoad::class
 		]);
