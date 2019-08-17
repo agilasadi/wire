@@ -31,7 +31,7 @@ class MakeIdentifier extends Command
 	 */
 	public function handle()
 	{
-		if (!class_exists($identifier = "App\\Wire\\Identifiers\\" . $this->argument('name')))
+		if (!class_exists($identifier = "App\\Wire\\Identifiers\\" . $this->argument('name'), false))
 		{
 			$model = null;
 
@@ -55,6 +55,7 @@ class MakeIdentifier extends Command
 			file_put_contents($path, $stub);
 
 			Artisan::call('identifier:load', ['name' => $this->argument('name')]);
+			Artisan::call('identifier:cache ' . "--identifier=" . $this->argument('name'));
 
 			$this->info("Identifier was created. don't forget to modify fields for convenient output");
 		}
