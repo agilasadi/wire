@@ -49,40 +49,34 @@ class IdentifierLoad extends Command
 			$this->info("Ckecing identifier: " . $identifier);
 			$identifier_class = new $identifier;
 
-			if ($model = $identifier_class->model)
+			if (class_exists($model = $identifier_class->model))
 			{
-				if (class_exists($model))
+
+				$this->info("Identifier and Model exists, adding up fields");
+
+				if (empty($identifier_class->fields()))
 				{
-					$this->info("Identifier and Model exists, adding up fields");
+					$this->info("loading....");
 
-					if (empty($identifier_class->fields()))
-					{
-						$this->info("loading....");
+					$fields = $this->getFields($model);
 
-						$fields = $this->getFields($model);
+					$identifier_stub = file_get_contents(__DIR__ . './../stubs/identifier.stub');
 
-						$identifier_stub = file_get_contents(__DIR__ . './../stubs/identifier.stub');
+					$identifier_stub = str_replace('{{name}}', $this->argument('name'), $identifier_stub);
 
-						$identifier_stub = str_replace('{{name}}', $this->argument('name'), $identifier_stub);
+					$identifier_stub = str_replace('{{fields}}', $fields, $identifier_stub);
 
-						$identifier_stub = str_replace('{{fields}}', $fields, $identifier_stub);
+					$identifier_stub = str_replace('{{model}}', $identifier_class->model, $identifier_stub);
 
-						$identifier_stub = str_replace('{{model}}', $identifier_class->model, $identifier_stub);
+					$path = app_path("Wire/Identifiers/" . $this->argument('name') . ".php");
 
-						$path = app_path("Wire/Identifiers/" . $this->argument('name') . ".php");
+					file_put_contents($path, $identifier_stub);
 
-						file_put_contents($path, $identifier_stub);
-
-						$this->info("Fields for " . $identifier . " have been updated");
-					}
-					else
-					{
-						$this->info("Fields for this identifier is not empty, add -f flag to force load fields");
-					}
+					$this->info("Fields for " . $identifier . " have been updated");
 				}
 				else
 				{
-					$this->info("Model does not exist: " . $model);
+					$this->info("Fields for this identifier is not empty, add -f flag to force load fields");
 				}
 			}
 			else
