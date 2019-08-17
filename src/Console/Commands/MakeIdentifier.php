@@ -3,6 +3,8 @@
 namespace rapkit\wire\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 class MakeIdentifier extends Command
 {
@@ -29,26 +31,37 @@ class MakeIdentifier extends Command
 	 */
 	public function handle()
 	{
-		$this->info('Discovering the model: ' . $model = config('wire.model_path') . $this->argument('name'));
-
-		if (class_exists($model))
+		if (!class_exists($identifier = "App\\Wire\\Identifiers\\" . $this->argument('name')))
 		{
-			$this->info("Model exists, Creating Identifier and binding Model..");
-			$fields = $this->getFields($model);
+			$model = null;
+
+			$fields = null;
+
+			$this->info('Discovering the model: ' . $model = config('wire.model_path') . $this->argument('name'));
+
+			if (class_exists($model))
+			{
+				$this->info("Model exists, Creating Identifier and binding Model..");
+			}
+			else
+			{
+				$this->info("Model does not exist, Creating Identifier .. .");
+			}
+
+			$stub = $this->getStub($this->argument('name'), $fields, $model);
+
+			$path = app_path("Wire/Identifiers/" . $this->argument('name') . ".php");
+
+			file_put_contents($path, $stub);
+
+			Artisan::call('identifier:load', ['name' => $this->argument('name')]);
+
+			$this->info("Identifier was created. don't forget to modify fields for convenient output");
 		}
 		else
 		{
-			$this->info("Model does not exist, Creating Identifier .. .");
-			$fields = null;
-			$model = null;
+			$this->info("An Identifier with the name " . $identifier . " already exists");
 		}
-
-		$stub = $this->getStub($this->argument('name'), $fields, $model);
-
-		$path = app_path("Wire/Identifiers/" . $this->argument('name') . ".php");
-
-		file_put_contents($path, $stub);
-		$this->info("Identifier was created. don't forget to modify fields for convenient output");
 	}
 
 
@@ -71,16 +84,5 @@ class MakeIdentifier extends Command
 		$stub = str_replace('{{model}}', $model, $stub);
 
 		return $stub;
-	}
-
-	/**
-	 * Gets fields for the Identifier and assigns
-	 *
-	 * @param $model
-	 * @return array
-	 */
-	protected function getFields($model)
-	{
-		return null;
 	}
 }
