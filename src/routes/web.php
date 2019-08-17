@@ -4,7 +4,7 @@ Route::group(['namespace' => 'App\Wire\Http\Controllers', 'middleware' => 'web',
 	Route::post('login', 'Authentication\LoginController@attemptLogin')->name('wire.attemptLogin');
 
 	Route::group(['middleware' => 'wire_interface'], function () {
-		Route::get('/dashboard', 'DashboardController@dashboard')->name('wire.dashboard');
+		Route::get('/', 'DashboardController@dashboard')->name('wire.dashboard');
 
 		Route::get('logout', 'Authentication\LogoutController@logout')->name('wire.logout');
 

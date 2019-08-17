@@ -54,7 +54,7 @@ class LoginController extends Controller
     {
         if ($this->success)
         {
-            return redirect()->intended('wire/dashboard');
+            return redirect()->intended('wire/');
         }
         else
         {
