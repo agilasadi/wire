@@ -47,8 +47,11 @@ class CrudController extends WireController
 		if ($route && array_key_exists($route, Cache::get('identifier_classes')))
 		{
 			$class_name = Cache::get('identifier_classes')[$route];
-
 			$this->identifier = new $class_name;
+		}
+		else
+		{
+			$this->identifie = false;
 		}
 	}
 
@@ -58,6 +61,10 @@ class CrudController extends WireController
 	 */
 	public function index($route)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$reproduced_fields = $this->identifier->fields();
 		foreach ($reproduced_fields as $key => $value)
 		{
@@ -83,6 +90,10 @@ class CrudController extends WireController
 	 */
 	public function create($route)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$reproduced_fields = $this->reproduceIdentifier($this->identifier, 'create', false, true);
 
 		$response = [
@@ -109,6 +120,10 @@ class CrudController extends WireController
 	 */
 	public function show($route, $id)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$loaded_identifier = $this->loadIdentifier($this->identifier, 'show', true, $id);
 
 		return view($this->show_view, [
@@ -127,6 +142,10 @@ class CrudController extends WireController
 	 */
 	public function store(Request $request, $route)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$validated = $this->validatedData($this->identifier, $request, "create");
 
 		if ($this->success === true)
@@ -148,6 +167,10 @@ class CrudController extends WireController
 	 */
 	public function restore($route, $id)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$record = $this->identifier->model::onlyTrashed()->findOrFail($id)->restore();
 
 		if (!$record)
@@ -167,6 +190,10 @@ class CrudController extends WireController
 	 */
 	public function recycle($route)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$reproduced_fields = $this->identifier->fields();
 
 		foreach ($reproduced_fields as $key => $value)
@@ -187,7 +214,6 @@ class CrudController extends WireController
 			'identifier' => $this->identifier,
 			'fields' => $reproduced_fields
 		]);
-
 	}
 
 
@@ -198,6 +224,10 @@ class CrudController extends WireController
 	 */
 	public function destroy($route, $id)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		if (Input::get('force_delete'))
 		{
 			$this->identifier->model::onlyTrashed()->findOrFail($id)->forceDelete();
@@ -220,6 +250,10 @@ class CrudController extends WireController
 	 */
 	public function edit($route, $id, $parameter = null)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$reproduced_fields = $this->reproduceIdentifier($this->identifier, 'edit', false, true);
 
 		$loaded_identifier = $this->loadIdentifier($this->identifier, 'show', true, $id);
@@ -241,6 +275,10 @@ class CrudController extends WireController
 	 */
 	public function update($route, $id, Request $request, $sub_model = null)
 	{
+		if (!$this->identifier)
+		{
+			return view('wire.views.unknown', ['parameter' => $route]);
+		}
 		$data = $this->identifier->model::find($id);
 
 		if (!$id || !$data)
