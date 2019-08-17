@@ -1,7 +1,7 @@
 @extends('wire.views.layouts.empty_master')
 @section('style')
-	<link href="{{ asset('wire/wire-css/authentication/floating-labels.css') }}" rel="stylesheet">
-	<link href="{{ asset('wire/wire-css/authentication/login.css') }}" rel="stylesheet">
+	<link href="{{ asset('wire-assets/wire-css/authentication/floating-labels.css') }}" rel="stylesheet">
+	<link href="{{ asset('wire-assets/wire-css/authentication/login.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
         @csrf
 
 		<div class="text-center mb-4">
-			<img class="mb-4 rounded-circle shadow-sm" src="{{ asset('wire/wire-images/asar.jpg') }}" alt="" width="72" height="72">
+			<img class="mb-4 rounded-circle shadow-sm" src="{{ asset('wire-assets/wire-images/asar.jpg') }}" alt="" width="72" height="72">
             <h2 class="h2 mb-3 font-weight-normal">{{ trans('wire::authentication.sign_in') }}</h2>
             <h4 class="h4 mb-3 font-weight-normal">{{ trans('wire::heading.asarsoft_authentication') }}</h4>
 		</div>

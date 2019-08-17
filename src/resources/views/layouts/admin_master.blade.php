@@ -22,7 +22,7 @@
 
     @yield('style')
 
-    <link rel="stylesheet" href="{{ asset('wire/wire-css/admin/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('wire-assets/wire-css/admin/dashboard.css') }}">
 </head>
 <body>
 
