@@ -1,9 +1,9 @@
-@extends('wire.layouts.admin_master')
+@extends('wire.views.layouts.admin_master')
 
 @section('content')
-    @component('wire.components.includes.crud_actions', ['module' => $model])
+    @component('wire.views.includes.crud_actions', ['module' => $model])
     @endcomponent
 
-    @component('wire.components.default.table', ['fields' => $fields, 'data' => $data, 'model' => $model, 'custom_slot' => true])
+    @component('wire.views.components.default.table', ['fields' => $fields, 'data' => $data, 'model' => $model, 'custom_slot' => true])
     @endcomponent
 @endsection

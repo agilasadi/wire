@@ -7,7 +7,7 @@
 					<th class="text-capitalize">{{ str_replace("_", " ", $field_key) }}</th>
 
 					<td>
-						@component('wire.components.default.table.'.$field_value['type'],
+						@component('wire.views.components.default.table.'.$field_value['type'],
 							[
 								'record' => $data,
 								'parameters' => $field_value,

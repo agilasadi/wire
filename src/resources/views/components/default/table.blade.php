@@ -22,7 +22,7 @@
                 @foreach($fields as $key => $value)
                     @if(@$value['available_in'] && in_array('index', $value['available_in'], true))
                         <td>
-                            @component('wire.components.default.table.'.$value['type'],
+                            @component('wire.views.components.default.table.'.$value['type'],
                                 [
                                     'record' => $record,
                                     'parameters' => $value,
