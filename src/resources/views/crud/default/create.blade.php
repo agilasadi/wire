@@ -9,7 +9,7 @@
         <form class="mb-4" method="post" action="{{ route('wire.store', $model) }}" enctype="multipart/form-data">
             @csrf
 
-            @component('wire.components.default.form', [
+            @component('wire.views.components.default.form', [
                 'fields' => $fields,
                 'model' => $model,
                 'method' => 'create',

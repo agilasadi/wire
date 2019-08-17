@@ -10,7 +10,7 @@
             @method('PUT')
             @csrf
 
-            @component('wire.components.default.form', ['fields' => $fields,'model' => $model, 'method' => 'edit', 'data' => $data])
+            @component('wire.views.components.default.form', ['fields' => $fields,'model' => $model, 'method' => 'edit', 'data' => $data])
             @endcomponent
 
             <button type="submit" class="btn btn-primary">{{ trans('wire::button_input.update') }}</button>
