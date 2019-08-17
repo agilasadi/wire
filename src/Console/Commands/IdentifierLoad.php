@@ -9,7 +9,7 @@ use ReflectionClass;
 class IdentifierLoad extends Command
 {
 	protected $integers = ['tinyint', 'bigint', 'smallint', 'mediumint', 'integer'];
-	protected $strings = ['tinytext', 'varchar', 'char'];
+	protected $strings = ['tinytext', 'varchar', 'char', 'string'];
 	protected $dates = ['date', 'datetime', 'timestamp', 'time', 'year'];
 	protected $texts = ['longtext', 'mediumtext', 'text'];
 
@@ -76,7 +76,7 @@ class IdentifierLoad extends Command
 				}
 				else
 				{
-					$this->info("Fields for this identifier is not empty, add -f flag to force load fields");
+					$this->info("Fields for this identifier is not empty, add --f flag to force load fields");
 				}
 			}
 			else
