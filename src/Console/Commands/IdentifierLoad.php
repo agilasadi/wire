@@ -18,7 +18,7 @@ class IdentifierLoad extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'identifier:load {name}';
+	protected $signature = 'identifier:load {name} {--f}';
 
 	/**
 	 * The console command description.
@@ -54,7 +54,7 @@ class IdentifierLoad extends Command
 
 				$this->info("Identifier and Model exists, adding up fields");
 
-				if (empty($identifier_class->fields()))
+				if (empty($identifier_class->fields()) || $this->option('f'))
 				{
 					$this->info("loading....");
 
