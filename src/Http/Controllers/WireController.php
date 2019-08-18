@@ -8,425 +8,443 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class WireController extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    /**
-     * @param $module_name, is used for empty fields
-     * @param $success, is used to define module identifier when a request is done to "wire" prefix
-     * @var string
-     */
-    public $module_name = 'non_registered';
-    public $success = true;
-
-    /**
-     * @param $pivot_or_child, is used to determine if there is a relational field in identifier
-     * @var array
-     */
-    public $pivot_or_child = ['belongsTo', 'belongsToMany', 'hasOne', 'hasMany'];
-
-    /**
-     * @param $insertable_fields, and @param $sub_objects, used when validating incoming data to insert into database
-     * @var array
-     */
-    public $insertable_fields = ['text', 'number', 'image', 'belongsTo', 'text_editor', 'textarea'];
-    public $sub_objects = ['hasMany', 'hasOne'];
-
-    /**
-     * @param $limit, prevents recursive functions from entering infinite loop
-     * @var int
-     */
-    public $limit = 10;
-
-    /**
-     * @param $relationships, is being used when item has relationships
-     * @var array
-     */
-    public $relationships = [];
-
-    /**
-     * @param $action
-     * @return array
-     */
-    function toastMessage($action)
-    {
-        $toast_messages = [
-            [
-                'message' => trans('wire::message.' . $this->module_name . '_' . $action . '_success_' . $this->success),
-                'title' => trans('wire::app.name')
-            ]
-        ];
-
-        return $toast_messages;
-    }
-
-    /**
-     * @param $identifier
-     * @param string $method
-     * @param null $id
-     * @param bool $load_data
-     * @return mixed
-     */
-    public function reproduceIdentifier($identifier, $method = "index", $id = null, $load_data = true)
-    {
-        $reproduced_fields = $identifier->fields();
-
-        foreach ($reproduced_fields as $key => $value)
-        {
-            if (in_array($value['type'], $this->pivot_or_child, true))
-            {
-                if (@$value['available_in'] && in_array($method, $value['available_in'], true))
-                {
-                    $reproduced_fields = $this->{$value['type'] . "Reproduce"}($reproduced_fields, $key, "create", $load_data);
-                }
-            }
-        }
-
-        return $reproduced_fields;
-    }
-
-    /**
-     * @param $identifier_fields
-     * @param $key
-     * @param string $method
-     * @param bool $load_data
-     * @return mixed
-     */
-    public function belongsToReproduce($identifier_fields, $key, $method = 'create', $load_data = false)
-    {
-        $identifier = new $identifier_fields[$key]['identifier'];
-
-        if ($load_data)
-        {
-            $identifier_fields[$key]['data'] = $this->identifierData($identifier);
-        }
-
-        $identifier_fields[$key]['title'] = $identifier->title;
-
-        $identifier_fields[$key]['model'] = $identifier->model;
-
-        return $identifier_fields;
-    }
-
-    /**
-     * @param $identifier_fields
-     * @param $key
-     * @param string $method
-     * @param bool $load_data
-     * @return mixed
-     */
-    public function hasManyReproduce($identifier_fields, $key, $method = "create", $load_data = true)
-    {
-        $sub_identifier = new $identifier_fields[$key]['identifier'];
-
-        $reproduced_fields = $sub_identifier->fields();
-
-        if ($this->limit !== 0)
-        {
-            $this->limit = $this->limit - 1;
-
-            foreach ($reproduced_fields as $field_key => $field_value)
-            {
-                if (in_array($field_value['type'], $this->pivot_or_child, true))
-                {
-                    if (@$field_value['available_in'] && in_array($method, $field_value['available_in'], true))
-                    {
-                        $reproduced_fields = $this->{$field_value['type'] . "Reproduce"}($reproduced_fields, $field_key, $method, $load_data);
-                    }
-                }
-            }
-        }
-
-        $identifier_fields[$key]['fields'] = $reproduced_fields;
-
-        return $identifier_fields;
-    }
-
-    /**
-     * @param $identifier_fields
-     * @param $key
-     * @param string $method
-     * @param bool $load_data
-     * @return mixed
-     */
-    public function belongsToManyReproduce($identifier_fields, $key, $method = 'create', $load_data = false)
-    {
-        $identifier = new $identifier_fields[$key]['identifier'];
-
-        if ($load_data)
-        {
-            $identifier_fields[$key]['data'] = $this->identifierData($identifier);
-        }
-
-        $identifier_fields[$key]['title'] = $identifier->title;
-
-        $identifier_fields[$key]['model'] = $identifier->model;
-
-        return $identifier_fields;
-    }
-
-    /**
-     * child is used when you want to load given child of the given identifier,
-     * and child id is to load a specific child
-     *
-     * @param $identifier
-     * @param $method
-     * @param bool $load_data
-     * @param null $id
-     * @param null $child
-     * @param null $child_id
-     * @return array
-     */
-    public function loadIdentifier($identifier, $method, $load_data = false, $id = null, $child = null, $child_id = null)
-    {
-        $data = null;
-
-        $identifier = new $identifier;
-
-        $identifier_fields['main_identifier'] = [
-            'title' => $identifier->title,
-            'model' => $identifier->model,
-            'fields' => $identifier->fields(),
-        ];
-
-        foreach ($identifier_fields['main_identifier']['fields'] as $key => $value)
-        {
-            if (in_array($value['type'], $this->pivot_or_child, true))
-            {
-                //Belongs to field should have title available
-                if ($value['type'] == 'belongsTo' || $value['type'] == 'belongsToMany' && @$value['available_in'] && in_array($method, $value['available_in'], true))
-                {
-                    $identifier_fields['main_identifier']['fields'] = $this->{$value['type'] . "Reproduce"}($identifier_fields['main_identifier']['fields'], $key, 'index', false);
-                }
-
-                $this->relationships[] = $value['method'];
-
-                $sub_identifier = $this->relationalIdentifier($value, $key, $method);
-
-                $identifier_fields['sub_identifier'][$sub_identifier['method']] = $sub_identifier;
-            }
-        }
-
-        if ($load_data)
-        {
-            $data = $this->identifierData($identifier, $id, $this->relationships, $child, $child_id);
-        }
-
-        $loaded_identifier = [
-            'data' => $data,
-            'identifier_fields' => $identifier_fields
-        ];
-
-        return $loaded_identifier;
-    }
-
-    /**
-     * @param $identifier
-     * @param array $relationships
-     * @param null $id
-     * @param null $child
-     * @param null $child_id
-     * @return mixed
-     */
-    public function identifierData($identifier, $id = null, $relationships = [], $child = null, $child_id = null)
-    {
-        if ($id == null)
-        {
-            $data = $identifier->model::with($relationships)->get();
-        }
-        else
-        {
-            $data = $identifier->model::with($relationships)->where('id', $id)->first();
-        }
-
-        return $data;
-    }
-
-    /**
-     * @param $field
-     * @param $field_key
-     * @param string $method
-     * @return mixed
-     */
-    public function relationalIdentifier($field, $field_key, $method = "index")
-    {
-        $identifier = new $field['identifier'];
-
-        $field['title'] = $identifier->title;
-
-        $field['model'] = $identifier->model;
-
-        $field['fields'] = $identifier->fields();
-
-        $field['key'] = $field_key;
-
-        if ($this->limit > 0)
-        {
-            $this->limit = $this->limit - 1;
-
-            foreach ($field['fields'] as $key => $value)
-            {
-                if ($value['type'] == 'belongsTo' && @$value['available_in'] && in_array($method, $value['available_in'], true))
-                {
-                    $field['fields'] = $this->belongsToReproduce($field['fields'], $key, $method);
-                }
-
-                elseif ($value['type'] == 'hasOne' && @$value['available_in'] && in_array($method, $value['available_in'], true))
-                {
-                    $field['fields'][$key] = $this->relationalIdentifier($value, $key, $method);
-                }
-            }
-        }
-
-        return $field;
-    }
-
-
-    /**
-     * @param $data
-     * @param $stored_data
-     * @return mixed
-     */
-    public function storeAndUpload($data, $stored_data = false)
-    {
-//        dd($stored_data, !$stored_data, $data);
-        if ($data['images'] != null)
-        {
-            foreach ($data['images'] as $image)
-            {
-                $path = Storage::disk($image['disk'])->put('', $data['data'][$image['name']]);
-
-                $data['data'][$image['name']] = $path;
-            }
-        }
-        if ($stored_data)
-        {
-            $stored_data->update($data['data']);
-        }
-        else
-        {
-            $stored_data = $data['model']::create($data['data']);
-        }
-
-        if ($data['sub_data'] != null)
-        {
-            foreach ($data['sub_data'] as $sub_data)
-            {
-                $sub_data['data'][strtolower(class_basename($data['model']) . "_id")] = $stored_data->id;
-
-                $this->storeAndUpload($sub_data);
-            }
-        }
-
-        if ($data['pivot'] != null)
-        {
-            $stored_data->{$data['pivot']['method']}()->sync($data['pivot']['data']);
-        }
-
-        return $stored_data->id;
-    }
-
-    /**
-     * todo make this function more readable
-     *
-     * ex: array at the bottom of function and instead define it peace by piece when it's required
-     *
-     * @param $identifier
-     * @param Request $data
-     * @param string $method
-     * @param $stored_data
-     * @return array
-     */
-    public function validatedData($identifier, Request $data, $method = "index", $stored_data = false)
-    {
-        $images = null;
-        $sub_data = null;
-        $pivot_data = null;
-        $errors = null;
-        $validate_sub_data = null;
-
-        $validator = Validator::make($data->all(), $rules = $this->rulesReproduce($identifier, $method));
-
-        foreach ($identifier->fields() as $field_key => $field_value)
-        {
-            if (in_array($method, $field_value['available_in'], true))
-            {
-                if (in_array($field_value['type'], $this->sub_objects, true) && !$stored_data)
-                {
-                    $sub_identifier = new $field_value['identifier'];
-                    $validate_sub_data = $this->validatedData($sub_identifier, $data, $method);
-                    $sub_data[] = $validate_sub_data;
-
-                    if (@$validate_sub_data['errors'])
-                    {
-                        $this->success = false;
-                        $errors = $errors ? $errors->merge($validate_sub_data['errors']) : $validate_sub_data['errors'];
-                    }
-                }
-                elseif ($field_value['type'] == "belongsToMany")
-                {
-                    $validate_sub_data = Validator::make($data->all(), [$field_key => @$field_value['rules']]);
-                    $errors = $errors ? $errors->merge($validate_sub_data->errors()) : $validate_sub_data->errors();
-
-                    $pivot_data = [
-                        'data' => @$data[$field_key],
-                        'method' => $field_value['method']
-                    ];
-                }
-                elseif ($field_value['type'] == "image" && @$data->all()[$field_key])
-                {
-                    if (true)
-                    {
-                        $images[] = array_merge($field_value, ['name' => $field_key]);
-                    }
-                }
-            }
-        }
-
-        if (!$this->success || $validator->fails())
-        {
-            $this->success = false;
-            $errors = $errors ? $errors->merge($validator->errors()) : $validator->errors();
-            $storable['errors'] = $errors;
-        }
-        else
-        {
-            $storable = [
-                'errors' => null,
-                'model' => $identifier->model,
-                'images' => $images,
-                'data' => $data->only(array_keys($rules)),
-                'sub_data' => $sub_data,
-                'pivot' => $pivot_data
-            ];
-        }
-
-        return $storable;
-    }
-
-    /**
-     * @param $identifier
-     * @param string $method
-     * @return array
-     */
-    public function rulesReproduce($identifier, $method = "index")
-    {
-        $rules = $identifier->rules();
-
-        foreach ($identifier->fields() as $key => $value)
-        {
-            if (in_array($value['type'], $this->insertable_fields, true) && in_array($method, $value['available_in'], true))
-            {
-                $field_rules = @$value['rules'] ? $value['rules'] : "nullable";
-
-                $rules = array_merge([$key => $field_rules], $rules);
-            }
-        }
-
-        return $rules;
-    }
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+	/**
+	 * @param $module_name , is used for empty fields
+	 * @param $success , is used to define module identifier when a request is done to "wire" prefix
+	 * @var string
+	 */
+	public $module_name = 'non_registered';
+	public $success = true;
+
+	/**
+	 * @param $pivot_or_child , is used to determine if there is a relational field in identifier
+	 * @var array
+	 */
+	public $pivot_or_child = ['belongsTo', 'belongsToMany', 'hasOne', 'hasMany'];
+
+	/**
+	 * @param $insertable_fields , and @param $sub_objects, used when validating incoming data to insert into database
+	 * @var array
+	 */
+	public $insertable_fields = ['text', 'number', 'image', 'belongsTo', 'text_editor', 'textarea', 'password'];
+	public $sub_objects = ['hasMany', 'hasOne'];
+
+	/**
+	 * @param $limit , prevents recursive functions from entering infinite loop
+	 * @var int
+	 */
+	public $limit = 10;
+
+	/**
+	 * @param $relationships , is being used when item has relationships
+	 * @var array
+	 */
+	public $relationships = [];
+
+	/**
+	 * @param $action
+	 * @return array
+	 */
+	function toastMessage($action)
+	{
+		$toast_messages = [
+			[
+				'message' => trans('wire::message.' . $this->module_name . '_' . $action . '_success_' . $this->success),
+				'title' => trans('wire::app.name')
+			]
+		];
+
+		return $toast_messages;
+	}
+
+	/**
+	 * @param $identifier
+	 * @param string $method
+	 * @param null $id
+	 * @param bool $load_data
+	 * @return mixed
+	 */
+	public function reproduceIdentifier($identifier, $method = "index", $id = null, $load_data = true)
+	{
+		$reproduced_fields = $identifier->fields();
+
+		foreach ($reproduced_fields as $key => $value)
+		{
+			if (in_array($value['type'], $this->pivot_or_child, true))
+			{
+				if (@$value['available_in'] && in_array($method, $value['available_in'], true))
+				{
+					$reproduced_fields = $this->{$value['type'] . "Reproduce"}($reproduced_fields, $key, "create", $load_data);
+				}
+			}
+		}
+
+		return $reproduced_fields;
+	}
+
+	/**
+	 * @param $identifier_fields
+	 * @param $key
+	 * @param string $method
+	 * @param bool $load_data
+	 * @return mixed
+	 */
+	public function belongsToReproduce($identifier_fields, $key, $method = 'create', $load_data = false)
+	{
+		$identifier = new $identifier_fields[$key]['identifier'];
+
+		if ($load_data)
+		{
+			$identifier_fields[$key]['data'] = $this->identifierData($identifier);
+		}
+
+		$identifier_fields[$key]['title'] = $identifier->title;
+
+		$identifier_fields[$key]['model'] = $identifier->model;
+
+		return $identifier_fields;
+	}
+
+	/**
+	 * @param $identifier_fields
+	 * @param $key
+	 * @param string $method
+	 * @param bool $load_data
+	 * @return mixed
+	 */
+	public function hasManyReproduce($identifier_fields, $key, $method = "create", $load_data = true)
+	{
+		$sub_identifier = new $identifier_fields[$key]['identifier'];
+
+		$reproduced_fields = $sub_identifier->fields();
+
+		if ($this->limit !== 0)
+		{
+			$this->limit = $this->limit - 1;
+
+			foreach ($reproduced_fields as $field_key => $field_value)
+			{
+				if (in_array($field_value['type'], $this->pivot_or_child, true))
+				{
+					if (@$field_value['available_in'] && in_array($method, $field_value['available_in'], true))
+					{
+						$reproduced_fields = $this->{$field_value['type'] . "Reproduce"}($reproduced_fields, $field_key, $method, $load_data);
+					}
+				}
+			}
+		}
+
+		$identifier_fields[$key]['fields'] = $reproduced_fields;
+
+		return $identifier_fields;
+	}
+
+	/**
+	 * @param $identifier_fields
+	 * @param $key
+	 * @param string $method
+	 * @param bool $load_data
+	 * @return mixed
+	 */
+	public function belongsToManyReproduce($identifier_fields, $key, $method = 'create', $load_data = false)
+	{
+		$identifier = new $identifier_fields[$key]['identifier'];
+
+		if ($load_data)
+		{
+			$identifier_fields[$key]['data'] = $this->identifierData($identifier);
+		}
+
+		$identifier_fields[$key]['title'] = $identifier->title;
+
+		$identifier_fields[$key]['model'] = $identifier->model;
+
+		return $identifier_fields;
+	}
+
+	/**
+	 * child is used when you want to load given child of the given identifier,
+	 * and child id is to load a specific child
+	 *
+	 * @param $identifier
+	 * @param $method
+	 * @param bool $load_data
+	 * @param null $id
+	 * @param null $child
+	 * @param null $child_id
+	 * @return array
+	 */
+	public function loadIdentifier($identifier, $method, $load_data = false, $id = null, $child = null, $child_id = null)
+	{
+		$data = null;
+
+		$identifier = new $identifier;
+
+		$identifier_fields['main_identifier'] = [
+			'title' => $identifier->title,
+			'model' => $identifier->model,
+			'fields' => $identifier->fields(),
+		];
+
+		foreach ($identifier_fields['main_identifier']['fields'] as $key => $value)
+		{
+			if (in_array($value['type'], $this->pivot_or_child, true))
+			{
+				//Belongs to field should have title available
+				if ($value['type'] == 'belongsTo' || $value['type'] == 'belongsToMany' && @$value['available_in'] && in_array($method, $value['available_in'], true))
+				{
+					$identifier_fields['main_identifier']['fields'] = $this->{$value['type'] . "Reproduce"}($identifier_fields['main_identifier']['fields'], $key, 'index', false);
+				}
+
+				$this->relationships[] = $value['method'];
+
+				$sub_identifier = $this->relationalIdentifier($value, $key, $method);
+
+				$identifier_fields['sub_identifier'][$sub_identifier['method']] = $sub_identifier;
+			}
+		}
+
+		if ($load_data)
+		{
+			$data = $this->identifierData($identifier, $id, $this->relationships, $child, $child_id);
+		}
+
+		$loaded_identifier = [
+			'data' => $data,
+			'identifier_fields' => $identifier_fields
+		];
+
+		return $loaded_identifier;
+	}
+
+	/**
+	 * @param $identifier
+	 * @param array $relationships
+	 * @param null $id
+	 * @param null $child
+	 * @param null $child_id
+	 * @return mixed
+	 */
+	public function identifierData($identifier, $id = null, $relationships = [], $child = null, $child_id = null)
+	{
+		if ($id == null)
+		{
+			$data = $identifier->model::with($relationships)->get();
+		}
+		else
+		{
+			$data = $identifier->model::with($relationships)->where('id', $id)->first();
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param $field
+	 * @param $field_key
+	 * @param string $method
+	 * @return mixed
+	 */
+	public function relationalIdentifier($field, $field_key, $method = "index")
+	{
+		$identifier = new $field['identifier'];
+
+		$field['title'] = $identifier->title;
+
+		$field['model'] = $identifier->model;
+
+		$field['fields'] = $identifier->fields();
+
+		$field['key'] = $field_key;
+
+		if ($this->limit > 0)
+		{
+			$this->limit = $this->limit - 1;
+
+			foreach ($field['fields'] as $key => $value)
+			{
+				if ($value['type'] == 'belongsTo' && @$value['available_in'] && in_array($method, $value['available_in'], true))
+				{
+					$field['fields'] = $this->belongsToReproduce($field['fields'], $key, $method);
+				}
+				elseif ($value['type'] == 'hasOne' && @$value['available_in'] && in_array($method, $value['available_in'], true))
+				{
+					$field['fields'][$key] = $this->relationalIdentifier($value, $key, $method);
+				}
+			}
+		}
+
+		return $field;
+	}
+
+
+	/**
+	 * @param $data
+	 * @param $stored_data
+	 * @return mixed
+	 */
+	public function storeAndUpload($data, $stored_data = false)
+	{
+		if ($data['images'] != null)
+		{
+			foreach ($data['images'] as $image)
+			{
+				$path = Storage::disk($image['disk'])->put('', $data['data'][$image['name']]);
+
+				$data['data'][$image['name']] = $path;
+			}
+		}
+		if ($stored_data)
+		{
+			$stored_data->update($data['data']);
+		}
+		else
+		{
+			$stored_data = $data['model']::create($data['data']);
+		}
+
+		if ($data['sub_data'] != null)
+		{
+			foreach ($data['sub_data'] as $sub_data)
+			{
+				$sub_data['data'][strtolower(class_basename($data['model']) . "_id")] = $stored_data->id;
+
+				$this->storeAndUpload($sub_data);
+			}
+		}
+
+		if ($data['pivot'] != null)
+		{
+			$stored_data->{$data['pivot']['method']}()->sync($data['pivot']['data']);
+		}
+
+		return $stored_data->id;
+	}
+
+	/**
+	 * todo make this function more readable
+	 *
+	 * ex: array at the bottom of function and instead define it peace by piece when it's required
+	 *
+	 * @param $identifier
+	 * @param Request $data
+	 * @param string $method
+	 * @param $stored_data
+	 * @return array
+	 */
+	public function validatedData($identifier, Request $data, $method = "index", $stored_data = false)
+	{
+		$images = null;
+		$sub_data = null;
+		$pivot_data = null;
+		$errors = null;
+		$validate_sub_data = null;
+
+		$validator = Validator::make($data->all(), $rules = $this->rulesReproduce($identifier, $method));
+
+		foreach ($identifier->fields() as $field_key => $field_value)
+		{
+			if (in_array($method, $field_value['available_in'], true))
+			{
+				if (in_array($field_value['type'], $this->sub_objects, true) && !$stored_data)
+				{
+					$sub_identifier = new $field_value['identifier'];
+					$validate_sub_data = $this->validatedData($sub_identifier, $data, $method);
+					$sub_data[] = $validate_sub_data;
+
+					if (@$validate_sub_data['errors'])
+					{
+						$this->success = false;
+						$errors = $errors ? $errors->merge($validate_sub_data['errors']) : $validate_sub_data['errors'];
+					}
+				}
+				elseif ($field_value['type'] == "belongsToMany")
+				{
+					$validate_sub_data = Validator::make($data->all(), [$field_key => @$field_value['rules']]);
+					$errors = $errors ? $errors->merge($validate_sub_data->errors()) : $validate_sub_data->errors();
+
+					$pivot_data = [
+						'data' => @$data[$field_key],
+						'method' => $field_value['method']
+					];
+				}
+				elseif ($field_value['type'] == "image" && @$data->all()[$field_key])
+				{
+					$images[] = array_merge($field_value, ['name' => $field_key]);
+				}
+				elseif ($field_value['type'] == "password")
+				{
+					$data = $this->passwordField($data, $field_key, $method);
+				}
+			}
+		}
+
+		if (!$this->success || $validator->fails())
+		{
+			$this->success = false;
+			$errors = $errors ? $errors->merge($validator->errors()) : $validator->errors();
+			$storable['errors'] = $errors;
+		}
+		else
+		{
+			$storable = [
+				'errors' => null,
+				'model' => $identifier->model,
+				'images' => $images,
+				'data' => $data->only(array_keys($rules)),
+				'sub_data' => $sub_data,
+				'pivot' => $pivot_data
+			];
+		}
+
+		return $storable;
+	}
+
+	/**
+	 * @param $identifier
+	 * @param string $method
+	 * @return array
+	 */
+	public function rulesReproduce($identifier, $method = "index")
+	{
+		$rules = $identifier->rules();
+
+		foreach ($identifier->fields() as $key => $value)
+		{
+			if (in_array($value['type'], $this->insertable_fields, true) && in_array($method, $value['available_in'], true))
+			{
+				$field_rules = @$value['rules'] ? $value['rules'] : "nullable";
+
+				if ($value['type'] == "password" && $method == "edit")
+				{
+					$field_rules = str_replace('required', 'nullable', $value['rules']);
+				}
+				$rules = array_merge([$key => $field_rules], $rules);
+			}
+		}
+
+		return $rules;
+	}
+
+	public function passwordField($data, $field_key, $method = "create")
+	{
+		if (@$data[$field_key])
+		{
+			$data[$field_key] = Hash::make($data[$field_key]);
+		}
+		elseif ($method == "edit")
+		{
+			unset($data[$field_key]);
+		}
+
+		return $data;
+	}
 }
