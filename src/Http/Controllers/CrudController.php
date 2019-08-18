@@ -286,7 +286,7 @@ class CrudController extends WireController
 			abort(404);
 		}
 
-		$validated = $this->validatedData($this->identifier, $request, "create", $data);
+		$validated = $this->validatedData($this->identifier, $request, "edit", $data);
 
 		if ($this->success === true)
 		{
