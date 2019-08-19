@@ -19,7 +19,10 @@ class BeforeWireInterface
 		//todo Check for the role once it's specified -refactor
 		if (Auth::check())
 		{
-			return $next($request);
+			if (Auth::guard(config('wire.wire_guard'))->check())
+			{
+				return $next($request);
+			}
 		}
 
 		return redirect()->route('wire.login');
