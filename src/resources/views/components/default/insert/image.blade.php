@@ -17,7 +17,7 @@
 {{--{{ dd($key, $field) }}--}}
 
 @if(@$record)
-    @component('wire.components.includes.image', [
+    @component('wire.views.includes.image', [
     'image' => $record,
     'width' => '',
     'height' => '5rem',
