@@ -26,7 +26,7 @@ class LoginController extends Controller
 		{
 			if ($parameter == 'email' && $this->checkIfEmail($validated['username_or_email']))
 			{
-				if (Auth::attempt([
+				if (Auth::guard(config('wire.wire_guard'))->attempt([
 					$paramter_key => $validated['username_or_email'],
 					'password' => $validated['password']
 				]))
@@ -38,7 +38,7 @@ class LoginController extends Controller
 					$this->success = false;
 				}
 			}
-			elseif (Auth::attempt([
+			elseif (Auth::guard(config('wire.wire_guard'))->attempt([
 				$paramter_key => $validated['username_or_email'],
 				'password' => $validated['password']
 			]))
