@@ -51,7 +51,6 @@ class IdentifierLoad extends Command
 
 			if (class_exists($model = $identifier_class->model))
 			{
-
 				$this->info("Identifier and Model exists, adding up fields");
 
 				if (empty($identifier_class->fields()) || $this->option('f'))

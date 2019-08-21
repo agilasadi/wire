@@ -4,6 +4,7 @@ namespace Rapkit\Wire\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BeforeWireInterface
 {
@@ -16,10 +17,9 @@ class BeforeWireInterface
 	 */
 	public function handle($request, Closure $next)
 	{
-		//todo Check for the role once it's specified -refactor
 		if (Auth::check())
 		{
-			if (Auth::guard(config('wire.wire_guard'))->check())
+			if (Auth::guard(config('wire.wire_guard'))->check() && Gate::allows('access-wire'))
 			{
 				return $next($request);
 			}
