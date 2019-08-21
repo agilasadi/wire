@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class WireServiceProvider extends ServiceProvider
@@ -12,9 +13,7 @@ class WireServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    {
-        //
-    }
+    { }
 
     /**
      * Bootstrap services.
@@ -23,6 +22,16 @@ class WireServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // authorise for the admin inderface
+        $this->gate();
+    }
+
+    /**
+     * If you have any extra logic for Wire access, you can define it here
+     */
+    public function gate()
+    {
+        Gate::define('access-wire', function ($user) {
+            return true;
+        });
     }
 }
