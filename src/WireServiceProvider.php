@@ -26,6 +26,13 @@ class WireServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		if ($this->app->runningInConsole())
+		{
+			$this->publishes([
+				__DIR__ . '/Console/stubs/WireServiceProvider.stub' => app_path('Providers/WireServiceProvider.php'),
+			], 'wire-provider');
+		}
+
 		/**
 		 * Loading Wire Routes
 		 */
