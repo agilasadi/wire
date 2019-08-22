@@ -32,7 +32,7 @@ return [
 	 * parameters of an email address.
 	 */
 	'authenticate_with' => [
-		"slug" => "string",
+		"username" => "string",
 		'email' => "email"
 	],
 
