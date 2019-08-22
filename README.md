@@ -29,6 +29,12 @@ you can configure that in `config\wire.php` by updating:
 ```   
 'model_path' => 'App\\',
 ```
+___
 
+When an identifier was created, Wire will automatically cache it to show in the menu, but if you would like to specifically cache each identifier that you would like to show in the menu, you can run:
+```
+php artisan identifier:cache --User
+```
+If you run `php artisan identifier:cache` with no Identifier name, than it will cache all of the identifiers.
 
-    
+You can remove identifier list with `php artisan cache:clear` command of laravel.
