@@ -38,3 +38,5 @@ php artisan identifier:cache --User
 If you run `php artisan identifier:cache` with no Identifier name, than it will cache all of the identifiers.
 
 You can remove identifier list with `php artisan cache:clear` command of laravel.
+
+Refer to https://github.com/rapkit/wire/wiki/Fields for more information about fields
