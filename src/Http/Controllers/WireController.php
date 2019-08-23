@@ -34,7 +34,7 @@ class WireController extends BaseController
 	 * @param $insertable_fields , and @param $sub_objects, used when validating incoming data to insert into database
 	 * @var array
 	 */
-	public $insertable_fields = ['text', 'number', 'image', 'belongsTo', 'text_editor', 'textarea', 'password'];
+	public $insertable_fields = ['text', 'number', 'image', 'file', 'belongsTo', 'text_editor', 'textarea', 'password'];
 	public $sub_objects = ['hasMany', 'hasOne'];
 
 	/**
@@ -293,13 +293,13 @@ class WireController extends BaseController
 	 */
 	public function storeAndUpload($data, $stored_data = false)
 	{
-		if ($data['images'] != null)
+		if ($data['files'] != null)
 		{
-			foreach ($data['images'] as $image)
+			foreach ($data['files'] as $file)
 			{
-				$path = Storage::disk($image['disk'])->put('', $data['data'][$image['name']]);
+				$path = Storage::disk($file['disk'])->put('', $data['data'][$file['name']]);
 
-				$data['data'][$image['name']] = $path;
+				$data['data'][$file['name']] = $path;
 			}
 		}
 		if ($stored_data)
@@ -342,7 +342,7 @@ class WireController extends BaseController
 	 */
 	public function validatedData($identifier, Request $data, $method = "index", $stored_data = false)
 	{
-		$images = null;
+		$files = null;
 		$sub_data = null;
 		$pivot_data = null;
 		$errors = null;
@@ -376,9 +376,9 @@ class WireController extends BaseController
 						'method' => $field_value['method']
 					];
 				}
-				elseif ($field_value['type'] == "image" && @$data->all()[$field_key])
+				elseif ($field_value['type'] == "image" || $field_value['type'] == "file" && @$data->all()[$field_key])
 				{
-					$images[] = array_merge($field_value, ['name' => $field_key]);
+					$files[] = array_merge($field_value, ['name' => $field_key]);
 				}
 				elseif ($field_value['type'] == "password")
 				{
@@ -398,7 +398,7 @@ class WireController extends BaseController
 			$storable = [
 				'errors' => null,
 				'model' => $identifier->model,
-				'images' => $images,
+				'files' => $files,
 				'data' => $data->only(array_keys($rules)),
 				'sub_data' => $sub_data,
 				'pivot' => $pivot_data
