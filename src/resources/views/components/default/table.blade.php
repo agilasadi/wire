@@ -33,8 +33,8 @@
                         </td>
                     @endif
                 @endforeach
-                <td>
-                    <div class="table-actions">
+                <td class="position-relative">
+                    <div class="table-actions position-absolute" style="left:0; top:7px">
                         @if(@$custom_slot == true)
                             <a href="{{ route('wire.restore', ['identifier' => $model, 'id' => $record['id']]) }}"
                                class="btn mr-2 btn-sm btn-outline-success btn-lg"

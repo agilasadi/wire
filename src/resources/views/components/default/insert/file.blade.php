@@ -19,9 +19,6 @@
 @if(@$record)
     @component('wire.views.includes.file', [
     'file' => $record,
-    'width' => '',
-    'height' => '5rem',
-    'class' => 'rounded border mb-4 mt-2',
     'disk' => $field['disk']
     ])
         <h6 class="">
