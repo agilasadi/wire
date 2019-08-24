@@ -10,4 +10,5 @@ return [
     'recycle' => 'Recycle',
     'actions' => 'Actions',
     'image' => "Image",
+    'file' => "File",
 ];
