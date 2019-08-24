@@ -49,10 +49,6 @@ class CrudController extends WireController
 			$class_name = Cache::get('identifier_classes')[$route];
 			$this->identifier = new $class_name;
 		}
-		else
-		{
-			$this->identifie = false;
-		}
 	}
 
 	/**
