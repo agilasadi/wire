@@ -14,16 +14,12 @@
         </div>
     @endif
 </div>
-{{--{{ dd($key, $field) }}--}}
 
 @if(@$record)
     @component('wire.views.includes.file', [
     'file' => $record,
     'disk' => $field['disk']
     ])
-        <h6 class="">
-            {{ trans('wire::button_input.file') }}
-        </h6>
     @endcomponent
 @endif
 
