@@ -1,6 +1,6 @@
 @extends('wire.views.layouts.admin_master')
-
 @section('content')
+
 @include('wire.views.includes.statistics')
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
