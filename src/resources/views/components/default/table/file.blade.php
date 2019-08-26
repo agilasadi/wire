@@ -26,7 +26,7 @@
 				</g>
 				</svg>
 		</div>
-		{{ trans('wire::wire.download') }}
+		<b>{{ trans('wire::wire.download') }}</b>
 	</a>
 @else
 	—
