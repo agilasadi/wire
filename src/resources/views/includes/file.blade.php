@@ -2,8 +2,8 @@
 @if($file != null)
     <a href="{{asset('storage/'. @$disk."/".$file)}}" download>
         <div class="float-left position-relative mr-2" style="width:32px; height:1px">
-            <svg class="position-absolute" style="top: -2px; height: 28px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                 viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+            <svg class="position-absolute" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 58 58" style="enable-background:new 0 0 58 58; top: -3px; height: 28px;" xml:space="preserve">
 					 <g>
                          <polygon style="fill:#EFEBDE;" points="46.5,14 32.5,0 1.5,0 1.5,58 46.5,58"></polygon>
                          <g>

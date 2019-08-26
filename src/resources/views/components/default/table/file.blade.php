@@ -5,7 +5,7 @@
 	   href="{{asset('storage/'.$record[$key])}}"
 	   @endif download>
 		<div class="float-left position-relative mr-2" style="width:32px; height:1px">
-			<svg class="position-absolute" style="enable-background:new 0 0 58 58; top: -2px; height: 28px" version="1.1" id="Capa_1"
+			<svg class="position-absolute" style="enable-background:new 0 0 58 58; top: -3px; height: 28px" version="1.1" id="Capa_1"
 			     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 			     x="0px" y="0px" viewBox="0 0 58 58" xml:space="preserve">
 				<g>
