@@ -3,7 +3,11 @@
 ###### Admin Panel for Laravel Applications
 
 
+
+
+
 Install The package By running
+
 
 
 ```
