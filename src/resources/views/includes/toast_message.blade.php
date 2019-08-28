@@ -3,7 +3,7 @@
         @foreach(session()->get('toast_message') as $toast_message)
             <div class="toast" role="alert" aria-live="assertive" data-delay="2750" aria-atomic="true">
                 <div class="toast-header">
-                    <img src="{{ asset('wire-assets/wire-images/welcome/asar.jpg') }}" style="width:1.26rem;"
+                    <img src="{{ asset('wire-assets/images/welcome/asar.jpg') }}" style="width:1.26rem;"
                          class="rounded mr-2" alt="...">
                     <strong class="mr-auto">{{ @$toast_message['title'] }}</strong>
                     <small class="text-muted ml-2"> {{ trans('wire::message.now') }} </small>

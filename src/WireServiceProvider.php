@@ -57,9 +57,9 @@ class WireServiceProvider extends ServiceProvider
 		 * these are going to be published into public folder.
 		 */
 		$this->publishes([
-			__DIR__ . '/public/wire-css' => public_path('wire-assets/wire-css'),
-			__DIR__ . '/public/wire-js' => public_path('wire-assets/wire-js'),
-			__DIR__ . '/public/wire-images' => public_path('wire-assets/wire-images'),
+			__DIR__ . '/public/css' => public_path('wire-assets/css'),
+			__DIR__ . '/public/js' => public_path('wire-assets/js'),
+			__DIR__ . '/public/images' => public_path('wire-assets/images'),
 		], 'public');
 
 		/**

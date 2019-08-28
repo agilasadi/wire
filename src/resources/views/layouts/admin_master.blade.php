@@ -13,7 +13,7 @@
 {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
 
 <!-- Styles -->
-    <link href="{{ asset('wire-assets/wire-css/admin/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('wire-assets/css/admin/style.css') }}" rel="stylesheet">
     @include('wire.views.includes.general_css')
     @include('wire.views.includes.general_js')
 
@@ -22,7 +22,7 @@
 
     @yield('style')
 
-    <link rel="stylesheet" href="{{ asset('wire-assets/wire-css/admin/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('wire-assets/css/admin/dashboard.css') }}">
 </head>
 <body>
 

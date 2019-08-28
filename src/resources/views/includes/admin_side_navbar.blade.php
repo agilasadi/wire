@@ -60,8 +60,8 @@
 					</p>
 				</div>
 			</div>
-			<div class="pl-1">
-				<div>Icons made by
+			<div>
+				<div class="px-3">Icons made by
 					<a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a>
                     from
 					<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
