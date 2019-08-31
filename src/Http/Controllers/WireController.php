@@ -297,9 +297,12 @@ class WireController extends BaseController
 		{
 			foreach ($data['files'] as $file)
 			{
-				$path = Storage::disk($file['disk'])->put('', $data['data'][$file['name']]);
+				if (array_key_exists($file['name'], $data['data']))
+				{
+					$path = Storage::disk($file['disk'])->put('', $data['data'][$file['name']]);
 
-				$data['data'][$file['name']] = $path;
+					$data['data'][$file['name']] = $path;
+				}
 			}
 		}
 		if ($stored_data)
