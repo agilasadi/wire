@@ -1,1 +1,5 @@
-{{ $record ? $record->{$key}->count() : 0 }}
+@if($record && $record->{$key})
+	{{ $record->{$key}->count() }}
+@else
+	—
+@endif

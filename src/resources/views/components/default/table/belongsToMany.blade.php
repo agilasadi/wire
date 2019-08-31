@@ -4,7 +4,5 @@
             {{ @$parameters['title'] ? $item->{$parameters['title']} : $item->id }}</a>{{ $loop->last ? "" : ", " }}
     @endforeach
 @else
-    <a class="text-decoration-none" href="#">
-        —
-    </a>
+    —
 @endif
