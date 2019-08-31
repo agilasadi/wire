@@ -1,1 +1,1 @@
-{{ $record ? $record->count() : 0 }}
+{{ $record ? $record->{$key}->count() : 0 }}
