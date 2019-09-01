@@ -34,7 +34,7 @@ class WireController extends BaseController
 	 * @param $insertable_fields , and @param $sub_objects, used when validating incoming data to insert into database
 	 * @var array
 	 */
-	public $insertable_fields = ['text', 'number', 'image', 'file', 'belongsTo', 'text_editor', 'textarea', 'password'];
+	public $insertable_fields = ['text', 'number', 'image', 'file', 'belongsTo', 'text_editor', 'textarea', 'password', 'boolean', 'select'];
 	public $sub_objects = ['hasMany', 'hasOne'];
 
 	/**
