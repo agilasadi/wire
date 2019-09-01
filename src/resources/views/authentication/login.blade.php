@@ -1,4 +1,4 @@
-@extends('wire.views.layouts.empty_master')
+@extends('wire.views.layouts.empty')
 @section('style')
 	<link href="{{ asset('wire-assets/css/authentication/floating-labels.css') }}" rel="stylesheet">
 	<link href="{{ asset('wire-assets/css/authentication/login.css') }}" rel="stylesheet">
