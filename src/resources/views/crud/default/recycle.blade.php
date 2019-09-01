@@ -1,4 +1,4 @@
-@extends('wire.views.layouts.admin_master')
+@extends('wire.views.layouts.master')
 
 @section('content')
     @component('wire.views.includes.crud_actions', ['module' => $model])

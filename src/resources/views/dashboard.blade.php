@@ -1,4 +1,4 @@
-@extends('wire.views.layouts.admin_master')
+@extends('wire.views.layouts.master')
 @section('content')
 
 @include('wire.views.includes.statistics')
