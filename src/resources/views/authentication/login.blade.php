@@ -42,12 +42,10 @@
 		</div>
 
         <div class="text-center mb-4">
-            <p>Log in to any <b>Asarsoft</b> application vie <code>asarsoft authentication</code> service.
-                Asarsoft Authentication assumes you accept
-                <a href="https://caniuse.com/#feat=css-placeholder-shown">privacy and terms</a></p>
+            <p>Wire Interface</p>
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		<p class="mt-5 mb-3 text-muted text-center">&copy; {{ now()->year }} <b>{{ config('wire.name') }}</b></p>
+        @include('wire.views.includes.footer')
 	</form>
 @endsection

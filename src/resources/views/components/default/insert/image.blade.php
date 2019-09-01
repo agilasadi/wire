@@ -14,7 +14,6 @@
         </div>
     @endif
 </div>
-{{--{{ dd($key, $field) }}--}}
 
 @if(@$record)
     @component('wire.views.includes.image', [
