@@ -154,6 +154,40 @@ class WireController extends BaseController
 	 * @param bool $load_data
 	 * @return mixed
 	 */
+	public function hasOneReproduce($identifier_fields, $key, $method = "create", $load_data = true)
+	{
+		$sub_identifier = new $identifier_fields[$key]['identifier'];
+
+		$reproduced_fields = $sub_identifier->fields();
+
+		if ($this->limit !== 0)
+		{
+			$this->limit = $this->limit - 1;
+
+			foreach ($reproduced_fields as $field_key => $field_value)
+			{
+				if (in_array($field_value['type'], $this->pivot_or_child, true))
+				{
+					if (@$field_value['available_in'] && in_array($method, $field_value['available_in'], true))
+					{
+						$reproduced_fields = $this->{$field_value['type'] . "Reproduce"}($reproduced_fields, $field_key, $method, $load_data);
+					}
+				}
+			}
+		}
+
+		$identifier_fields[$key]['fields'] = $reproduced_fields;
+
+		return $identifier_fields;
+	}
+
+	/**
+	 * @param $identifier_fields
+	 * @param $key
+	 * @param string $method
+	 * @param bool $load_data
+	 * @return mixed
+	 */
 	public function belongsToManyReproduce($identifier_fields, $key, $method = 'create', $load_data = false)
 	{
 		$identifier = new $identifier_fields[$key]['identifier'];
