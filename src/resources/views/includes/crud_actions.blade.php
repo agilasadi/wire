@@ -1,6 +1,6 @@
 <div class="mt-5 mb-4 col-md-12 px-0">
     <p class="my-4 h4">
-        <span class="text-capitalize">{{ str_replace("_", " ", $module) }}</span>
+        <span class="text-capitalize">{!! @$relation !!} {{ str_replace("_", " ", $module) }}</span>
         <span class="float-right">
             {{ $slot }}
             <a href="{{ route('wire.create', $module) }}{{ @$parent }}" class="text-capitalize btn btn-primary font-weight-bold mr-1" role="button"
