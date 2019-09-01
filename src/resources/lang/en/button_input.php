@@ -11,4 +11,7 @@ return [
     'actions' => 'Actions',
     'image' => "Image",
     'file' => "File",
+
+    'true' => 'True',
+    'false' => 'False',
 ];

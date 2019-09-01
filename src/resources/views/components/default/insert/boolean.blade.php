@@ -6,25 +6,25 @@
         @if($selected != 1 || $selected != 0)
             @if($selected == 1)
                 <option selected value="1">
-                    True
+                    {{ trans('wire::button_input.true') }}
                 </option>
                 <option value="0">
-                    False
+                    {{ trans('wire::button_input.false') }}
                 </option>
             @elseif($selected == 0)
                 <option selected value="0">
-                    False
+                    {{ trans('wire::button_input.false') }}
                 </option>
                 <option value="1">
-                    True
+                    {{ trans('wire::button_input.true') }}
                 </option>
             @endif
         @else
             <option class="text-capitalize" value="1">
-                True
+                {{ trans('wire::button_input.true') }}
             </option>
             <option class="text-capitalize" value="0">
-                False
+                {{ trans('wire::button_input.false') }}
             </option>
         @endif
 
