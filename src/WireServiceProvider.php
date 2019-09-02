@@ -29,7 +29,7 @@ class WireServiceProvider extends ServiceProvider
 		if ($this->app->runningInConsole())
 		{
 			$this->publishes([
-				__DIR__ . '/Console/stubs/WireServiceProvider.stub' => app_path('Providers/WireServiceProvider.php'),
+				__DIR__ . '/Console/stubs/publish/WireServiceProvider.stub' => app_path('Providers/WireServiceProvider.php'),
 			], 'wire-provider');
 		}
 
