@@ -66,14 +66,18 @@ class WireServiceProvider extends ServiceProvider
 		 * Controllers will be published
 		 */
 		$this->publishes([
-			__DIR__ . '/Http/Controllers' => base_path('app/Wire/Http/Controllers'),
+			__DIR__ . '/Console/stubs/publish/CrudController.stub' => base_path('app/Wire/Http/Controllers/CrudController.php'),
+			__DIR__ . '/Console/stubs/publish/DashboardController.stub' => base_path('app/Wire/Http/Controllers/DashboardController.php'),
+			__DIR__ . '/Console/stubs/publish/LoginController.stub' => base_path('app/Wire/Http/Controllers/Authentication/LoginController.php'),
+			__DIR__ . '/Console/stubs/publish/LogoutController.stub' => base_path('app/Wire/Http/Controllers/Authentication/LogoutController.php'),
+			__DIR__ . '/Console/stubs/publish/WireController.stub' => base_path('app/Wire/Http/Controllers/WireController.php'),
 		]);
 
 		/**
 		 * Identifier and Provider will be published
 		 */
 		$this->publishes([
-			__DIR__ . '/Identifiers' => base_path('app/Wire/Identifiers'),
+			__DIR__ . '/Console/stubs/publish/BaseIdentifier.stub' => base_path('app/Wire/Identifiers/BaseIdentifier.php'),
 		]);
 
 		/**
