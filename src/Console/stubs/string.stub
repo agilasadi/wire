@@ -1,5 +1,5 @@
-            '{{field_key}}' => [
-                'type' => 'text',
-                'available_in' => ['index', 'create', 'show', 'edit'],
-                'rules' => 'required|max:199'
+            "{{field_key}}" => [
+                "type" => "text",
+                "available_in" => ["index", "create", 'show', "edit"],
+                "rules" => "required|max:199'
             ],

@@ -1,4 +1,4 @@
-            '{{field_key}}' => [
-                'type' => 'date',
-                'available_in' => ['index', 'show']
+            "{{field_key}}" => [
+                "type" => "date",
+                "available_in" => ["index", "show"]
             ],

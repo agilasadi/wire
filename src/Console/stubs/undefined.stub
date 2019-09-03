@@ -1,4 +1,4 @@
-            '{{field_key}}' => [
-                'type' => 'text',
-                'available_in' => ['create', 'show']
+            "{{field_key}}" => [
+                "type" => "text",
+                "available_in" => ["create", "show"]
             ],

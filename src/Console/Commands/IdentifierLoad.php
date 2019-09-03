@@ -12,6 +12,7 @@ class IdentifierLoad extends Command
 	protected $strings = ['tinytext', 'varchar', 'char', 'string'];
 	protected $dates = ['date', 'datetime', 'timestamp', 'time', 'year'];
 	protected $texts = ['longtext', 'mediumtext', 'text'];
+	protected $boolean = ['boolean', 'bit', 'tinyint'];
 
 	/**
 	 * The name and signature of the console command.
@@ -108,7 +109,11 @@ class IdentifierLoad extends Command
 
 			$field_type = Schema::getColumnType($table, $field);
 
-			if (in_array($field_type, $this->integers, true))
+			if (in_array($field_type, $this->boolean, true))
+			{
+				$field_type = "boolean";
+			}
+			elseif (in_array($field_type, $this->integers, true))
 			{
 				$field_type = "int";
 			}

@@ -1,0 +1,4 @@
+            "{{field_key}}"" => [
+                "type" => "boolean",
+                "available_in" => ["show", "index", "create", "edit"]
+            ],

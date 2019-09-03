@@ -1,5 +1,5 @@
-            '{{field_key}}' => [
-                'type' => 'text_editor',
-                'available_in' => ['create', 'show', 'edit'],
-                'rules' => 'required'
+            "{{field_key}}" => [
+                "type" = "text_editor",
+                "available_in" = ["create", "show", "edit"],
+                "rules" = "required"
             ],
