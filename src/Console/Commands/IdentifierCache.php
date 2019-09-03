@@ -42,7 +42,7 @@ class IdentifierCache extends Command
 		{
 			$classes = [];
 
-			$identifiers = glob((app_path('Wire/Identifiers/*.php')));
+			$identifiers = glob(app_path('Wire/Identifiers/*.php'));
 
 			foreach ($identifiers as $identifier)
 			{
