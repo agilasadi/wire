@@ -93,8 +93,8 @@ class CrudController extends WireController
         if (\Illuminate\Support\Facades\Request::get('parent') && \Illuminate\Support\Facades\Request::get('id'))
         {
             $response['selected'] = [
-                'key' => Input::get('parent'),
-                'value' => Input::get('id')
+                'key' => \Illuminate\Support\Facades\Request::input('parent'),
+                'value' => \Illuminate\Support\Facades\Request::input('id')
             ];
         }
         return view($this->create_view)->with($response);
@@ -202,7 +202,7 @@ class CrudController extends WireController
         {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
-        if (Input::get('force_delete'))
+        if (\Illuminate\Support\Facades\Request::input('force_delete'))
         {
             $this->identifier->model::onlyTrashed()->findOrFail($id)->forceDelete();
         }
