@@ -10,7 +10,7 @@
 			@if(cache('identifier_classes'))
 				@foreach(cache('identifier_classes') as $class_key => $class_value)
 					<li class="nav-item">
-						<a class="nav-link s_b_anchor" href="{{ route('wire.index', ['route' => $class_key]) }}">
+						<a class="nav-link s_b_anchor" href="{{ route('wire.index', $class_key) }}">
 							<i class="mr-2 s_b_icons fas fa-cubes"></i>
 							{{ basename($class_value) }}
 						</a>
