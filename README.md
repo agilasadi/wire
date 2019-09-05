@@ -26,6 +26,27 @@ php artisan vendor:publish --provider="Rapkit\Wire\WireServiceProvider"
 
 ```
 
+You will also need to register a service provider that has been published to modify some of the functionalities of Wire.
+
+
+Either register it in **config/app.php**
+
+```
+
+App\Providers\WireServiceProvider::class,
+
+```
+
+If you register it inside `config/app.php` make sure to clear config cache with `php artisan config:cache`
+
+
+or inside register method of AppServiceProvider:
+
+```
+
+$this->app->register(WireServiceProvider::class);
+
+```
 
 
 To create an **identifier** run:
