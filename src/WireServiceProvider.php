@@ -26,6 +26,9 @@ class WireServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		/**
+		 * Publishing service provider for users to modify if needed.
+		 */
 		if ($this->app->runningInConsole())
 		{
 			$this->publishes([
@@ -48,6 +51,9 @@ class WireServiceProvider extends ServiceProvider
 		 */
 		$this->loadViewsFrom(__DIR__ . "/resources/views", "wire");
 
+		/**
+		 * views are being published for the user to modify later on
+		 */
 		$this->publishes([
 			__DIR__ . '/resources' => resource_path('views/wire'),
 		]);
@@ -87,6 +93,10 @@ class WireServiceProvider extends ServiceProvider
 			__DIR__ . '/config/wire.php' => config_path('wire.php'),
 		]);
 
+		/**
+		 * Command for developers to modify their resources
+		 * such as caching and creating identifiers.
+		 */
 		$this->commands([
 			Console\Commands\IdentifierCache::class,
 			Console\Commands\MakeIdentifier::class,
