@@ -2,8 +2,10 @@
 	<div class="sidebar-sticky">
 		<ul class="nav flex-column">
 			<li class="nav-item pb-2 border-bottom">
-				<a class="nav-link s_b_anchor @if(Request::route()->getName() == 'wire.dashboard') active @endif" href="{{ route('wire.dashboard') }}">
-					<i class="mr-2 s_b_icons fas fa-satellite"></i>
+				<a class="nav-link d-flex inline align-items-center s_b_anchor @if(Request::route()->getName() == 'wire.dashboard') active @endif" href="{{ route('wire.dashboard') }}">
+					<svg style="fill: currentColor" class="s_b_icons fill-current mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+						<path d="M16 16v2H4v-2H0V4h4V2h12v2h4v12h-4zM14 5.5V4H6v12h8V5.5zm2 .5v8h2V6h-2zM4 6H2v8h2V6z"></path>
+					</svg>
 					Dashboard <span class="sr-only">(current)</span>
 				</a>
 			</li>
