@@ -23,6 +23,8 @@ class WireServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->gate();
+
+        CacheIdentifierClasses::checkIdentifierCache();
     }
 
     /**
