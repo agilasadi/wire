@@ -1,23 +1,25 @@
 @extends('wire.views.layouts.master')
 
 @section('content')
+    <div class="shadow rounded bg-white">
+        @component('wire.views.includes.crud_actions', ['module' => $model])
+        @endcomponent
 
-    @component('wire.views.includes.crud_actions', ['module' => $model])
-    @endcomponent
-
-    <div class="col-md-12 mb-5">
-        <form class="mb-4" method="post" action="{{ route('wire.store', $model) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('wire.store', $model) }}" enctype="multipart/form-data">
             @csrf
+            <div class="col-md-12 mt-3">
+                @component('wire.views.components.default.form', [
+                    'fields' => $fields,
+                    'model' => $model,
+                    'method' => 'create',
+                    'selected' => @$selected
+                ])
+                @endcomponent
+            </div>
 
-            @component('wire.views.components.default.form', [
-                'fields' => $fields,
-                'model' => $model,
-                'method' => 'create',
-                'selected' => @$selected
-            ])
-            @endcomponent
-
-            <button type="submit" class="btn btn-primary">{{ trans('wire::button_input.create') }}</button>
+            <div class="bg-light p-3 rounded-bottom">
+                <button type="submit" class="btn btn-primary text-uppercase font-weight-bold shadow-rg">{{ trans('wire::button_input.create') }}</button>
+            </div>
         </form>
     </div>
 @endsection
