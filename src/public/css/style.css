@@ -22,8 +22,36 @@
     right: 0;
 }
 
-.table-actions .btn{
+.table-actions .btn {
     border: 1px solid transparent;
+}
+
+.button_svg_icon {
+    fill: currentColor;
+    height: 1rem;
+    margin-right: .5rem !important;
+}
+
+.text-sm {
+    font-size: .875rem;
+}
+
+.svg_button {
+    align-items: center;
+    display: inline-flex;
+}
+
+.height-1 {
+    height: 1rem;
+}
+
+.crud_action_button{
+    color: #3c366b;
+    font-weight: 600;
+}
+
+.text-indigo-900{
+    color: #3c366b;
 }
 
 @media (max-width: 991px) {
