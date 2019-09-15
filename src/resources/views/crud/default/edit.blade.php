@@ -8,12 +8,12 @@
 		<form method="post" action="{{ route('wire.update', [$model, $data->id]) }}" enctype="multipart/form-data">
 			@method('PUT')
 			@csrf
-			<div class="col-md-12 mt-3">
+			<div class="col-md-12 pt-3 pb-2 px-4">
 				@component('wire.views.components.default.form', ['fields' => $fields,'model' => $model, 'method' => 'edit', 'data' => $data])
 				@endcomponent
 			</div>
 
-			<div class="bg-light p-3 rounded-bottom">
+			<div class="bg-light py-3 px-4 rounded-bottom">
 				<button type="submit" class="btn btn-primary text-uppercase font-weight-bold shadow-rg">{{ trans('wire::button_input.update') }}</button>
 			</div>
 		</form>
