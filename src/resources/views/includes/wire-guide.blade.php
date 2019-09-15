@@ -1,4 +1,4 @@
-<div class="py-5 my-5 container shadow-sm rounded border-bottom">
+<div class="py-5 my-5 container shadow-sm rounded border-bottom bg-white">
 	<h2 class="h2">Generating Identifier</h2>
 	<p style="margin-bottom: 16px; color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px;">To create an&nbsp;<span style="font-weight: 600;">identifier</span>&nbsp;run:
 	</p>
