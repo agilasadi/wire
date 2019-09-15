@@ -4,14 +4,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
-	<!-- Scripts -->
-
-	<!-- Styles -->
 	<link href="{{ asset('wire-assets/css/admin/style.css') }}" rel="stylesheet">
 	@include('wire.views.includes.general_css')
 	@include('wire.views.includes.general_js')
@@ -23,8 +19,7 @@
 
 	<link rel="stylesheet" href="{{ asset('wire-assets/css/admin/dashboard.css') }}">
 </head>
-<body>
-
+<body class="bg-light">
 
 @include('wire.views.includes.admin_navbar')
 <div class="container-fluid">
@@ -33,13 +28,13 @@
 			@include('wire.views.includes.admin_side_navbar')
 			<div class="col-md-12 container-fluid">
 				@yield('content')
+				@include('wire.views.includes.footer')
 			</div>
 		</main>
 	</div>
 </div>
 @include('wire.views.includes.user_actions')
 @include('wire.views.includes.toast_message')
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 @yield('script')
