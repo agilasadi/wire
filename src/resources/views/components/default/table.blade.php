@@ -1,10 +1,10 @@
 @if(!$data->isEmpty())
-    <table class="table table-striped">
-        <thead>
-        <tr>
+    <table class="table table-borderless px-3">
+        <thead class="bg-light">
+        <tr class="px-3">
             @foreach($fields as $header_key => $header_value)
                 @if(@$header_value['available_in'] && in_array('index', $header_value['available_in'], true))
-                    <th>
+                    <th class="px-4 py-3">
                         <span class="text-capitalize">{{ str_replace("_", " ", $header_key) }}</span>
                     </th>
                 @endif
@@ -21,7 +21,7 @@
             <tr>
                 @foreach($fields as $key => $value)
                     @if(@$value['available_in'] && in_array('index', $value['available_in'], true))
-                        <td>
+                        <td class="px-4 py-3">
                             @component('wire.views.components.default.table.'.$value['type'],
                                 [
                                     'record' => $record,
@@ -33,7 +33,7 @@
                         </td>
                     @endif
                 @endforeach
-                <td class="position-relative">
+                <td class="position-relative center">
                     <div class="table-actions position-absolute" style="left:0; top:7px">
                         @if(@$custom_slot == true)
                             <a href="{{ route('wire.restore', ['identifier' => $model, 'id' => $record['id']]) }}"
@@ -77,5 +77,9 @@
         </tbody>
     </table>
 @else
-    <p class="text-center p-5 bg-light border rounded text-info h6"><i class="far fa-folder-open mr-2"></i> {{ trans('wire::wire.nothing_to_show') }}</p>
+    <div class="p-2">
+        <div class="text-center p-5 bg-light border rounded text-info h6 mb-0">
+            <i class="far fa-folder-open mr-2"></i> {{ trans('wire::wire.nothing_to_show') }}
+        </div>
+    </div>
 @endif
