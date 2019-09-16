@@ -13,7 +13,7 @@
 				@endcomponent
 			</div>
 
-			<div class="bg-light py-3 px-4 rounded-bottom">
+			<div class="bg-light px-4 py-3 rounded-bottom">
 				<button type="submit" class="btn btn-primary text-uppercase font-weight-bold shadow-rg">{{ trans('wire::button_input.update') }}</button>
 			</div>
 		</form>
