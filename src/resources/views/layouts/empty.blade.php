@@ -13,14 +13,14 @@
 	<script src="{{ asset('js/app.js') }}" defer></script>
 
 	<!-- Styles -->
-    @include('wire.views.includes.general_css')
+    @include('wire.views.includes.css')
     @yield('style')
 
 </head>
 <body>
 	@yield('content')
 
-    @include('wire.views.includes.general_js')
+    @include('wire.views.includes.js')
     @yield('script')
 </body>
 </html>

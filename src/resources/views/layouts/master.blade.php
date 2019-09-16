@@ -9,8 +9,8 @@
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
 	<link href="{{ asset('wire-assets/css/admin/style.css') }}" rel="stylesheet">
-	@include('wire.views.includes.general_css')
-	@include('wire.views.includes.general_js')
+	@include('wire.views.includes.css')
+	@include('wire.views.includes.js')
 
 
 	@yield('style')
