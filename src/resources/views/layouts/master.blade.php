@@ -34,7 +34,6 @@
 @include('wire.views.includes.user_actions')
 @include('wire.views.includes.toast_message')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 @yield('script')
 </body>
 </html>
