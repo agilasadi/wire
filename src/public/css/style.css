@@ -61,6 +61,17 @@
     cursor: pointer;
 }
 
+.recordStatus1{
+    background: #9ae6b4;
+    height: 0.75rem;
+    width: 0.75rem;
+}
+.recordStatus0{
+    background: #e53e3e;
+    height: 0.75rem;
+    width: 0.75rem;
+}
+
 @media (max-width: 991px) {
     .user_sidebar {
     }
