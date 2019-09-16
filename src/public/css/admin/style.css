@@ -16,6 +16,15 @@
     color: #0062cc;
 }
 
+.transparent_button{
+    background: transparent;
+    border: transparent;
+}
+
+.transparent_button:hover{
+    color: #0056b3;
+}
+
 @media (max-width: 991px) {
 }
 
