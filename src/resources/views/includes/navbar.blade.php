@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top flex-md-nowrap p-0 border-bottom">
+<nav class="navbar bg-light fixed-top flex-md-nowrap p-0 border-bottom">
     <a class="text-info navbar-brand col-sm-3 col-md-2 mr-0" href="{{ route('wire.dashboard') }}">{{ config('wire.name') }}</a>
 
     <div class="pr-3">
