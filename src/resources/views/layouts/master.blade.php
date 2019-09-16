@@ -12,10 +12,7 @@
 	@include('wire.views.includes.css')
 	@include('wire.views.includes.js')
 
-
 	@yield('style')
-
-	<link rel="stylesheet" href="{{ asset('wire-assets/css/admin/dashboard.css') }}">
 </head>
 <body class="bg-light">
 

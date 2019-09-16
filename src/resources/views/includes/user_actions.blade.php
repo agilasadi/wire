@@ -1,7 +1,7 @@
 <div class="position-fixed vh-100 bg-white user_sidebar user_actions shadow" id="user_actions">
     <div class="card-header">
         User Actions
-        <span class="close border-0 user_actions_toggler button_svg_icon transparent_button cursor-pointer" id="user_actions_slide">
+        <span class="close py-1 user_actions_toggler svg_button transparent_button cursor-pointer" id="user_actions_slide">
             <svg class="button_svg_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"></path>
             </svg>
