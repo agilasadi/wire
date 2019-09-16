@@ -1,1 +1,1 @@
-{{ $record[$key] }}
+{!! $record[$key] !!}
