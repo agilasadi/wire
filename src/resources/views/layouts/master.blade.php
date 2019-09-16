@@ -19,11 +19,11 @@
 </head>
 <body class="bg-light">
 
-@include('wire.views.includes.admin_navbar')
+@include('wire.views.includes.navbar')
 <div class="container-fluid">
 	<div class="row">
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-			@include('wire.views.includes.admin_side_navbar')
+			@include('wire.views.includes.side_navbar')
 			<div class="col-md-12 container-fluid">
 				@yield('content')
 				@include('wire.views.includes.footer')
