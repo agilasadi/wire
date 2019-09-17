@@ -1,4 +1,4 @@
-<div class="mt-5 col-md-12 px-0">
+<div class="col-md-12 px-0">
     <p class="py-3 px-4 h4 mb-0 border-bottom border-light">
         <span class="text-capitalize text-indigo-900">{!! @$relation !!} {{ str_replace("_", " ", $module) }}</span>
         <span class="float-right">
