@@ -1,6 +1,6 @@
 @if(!$data->isEmpty())
 	<div style="overflow-x:auto;">
-		<table class="table table-borderless px-3">
+		<table class="table table-borderless px-3 mb-0">
 			<thead class="bg-light">
 			<tr class="px-3">
 				@foreach($fields as $header_key => $header_value)
@@ -10,7 +10,7 @@
 						</th>
 					@endif
 				@endforeach
-				<th class="text-center" style="width: 116px">
+				<th class="text-center py-3" style="width: 116px; background: #edf2f7">
                 <span class="text-uppercase text-dark">
                     {{ trans('wire::button_input.actions') }}
                 </span>
@@ -36,7 +36,7 @@
 							</td>
 						@endif
 					@endforeach
-					<td class="d-flex justify-content-between py-3 svg_button">
+					<td class="d-flex justify-content-between py-3 svg_button bg-light">
 						@if(@$custom_slot == true)
 							<a href="{{ route('wire.restore', ['identifier' => $model, 'id' => $record['id']]) }}"
 							   class="btn mr-2 btn-sm btn-outline-success btn-lg"
