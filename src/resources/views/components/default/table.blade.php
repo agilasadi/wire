@@ -37,7 +37,7 @@
 						@endif
 					@endforeach
 					<td class="bg-light">
-						<div class="d-flex justify-content-between py-3 svg_button">
+						<div class="d-flex justify-content-between svg_button">
 							@if(@$custom_slot == true)
 								<a href="{{ route('wire.restore', ['identifier' => $model, 'id' => $record['id']]) }}"
 								   class="btn mr-2 btn-sm btn-outline-success btn-lg"
