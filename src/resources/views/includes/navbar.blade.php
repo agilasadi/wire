@@ -1,5 +1,7 @@
-<nav class="navbar bg-light fixed-top flex-md-nowrap p-0 border-bottom">
-    <a class="text-info navbar-brand col-sm-3 col-md-2 mr-0" href="{{ route('wire.dashboard') }}">{{ config('wire.name') }}</a>
+<nav class="navbar bg-light fixed-top flex-md-nowrap px-1 py-0 shadow-sm">
+    <a class="text-dark navbar-brand col-sm-3 col-md-2 mr-0 font-bolder" href="{{ route('wire.dashboard') }}">
+        {{ config('wire.name') }} <span class="font-light">{{ config('wire.description') }}</span>
+    </a>
 
     <div class="pr-3">
         <span class="border-0 user_actions_toggler button_svg_icon transparent_button cursor-pointer" id="user_actions_slide">
