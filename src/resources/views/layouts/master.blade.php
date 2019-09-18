@@ -19,7 +19,7 @@
 @include('wire.views.includes.navbar')
 <div class="container-fluid">
 	<div class="row my-0">
-		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-0">
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 master-body">
 			@include('wire.views.includes.side_navbar')
 			<div class="col-md-12 py-0 container-fluid mt-5">
 				@yield('content')
