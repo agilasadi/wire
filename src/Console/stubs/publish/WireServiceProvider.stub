@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Rapkit\Wire\Scripts\CacheIdentifierClasses;
 
 class WireServiceProvider extends ServiceProvider
 {
