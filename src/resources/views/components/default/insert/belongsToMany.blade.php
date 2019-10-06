@@ -25,8 +25,8 @@
 </div>
 
 <script>
-    $(document).ready(function ()
-    {
-        $('.belongsToManyClass').select2();
-    });
+	$(document).ready(function ()
+	{
+		$('.belongsToManyClass').select2();
+	});
 </script>

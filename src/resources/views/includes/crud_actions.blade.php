@@ -1,7 +1,7 @@
 <div class="col-md-12 px-0">
-    <p class="py-4 px-4 h4 mb-0">
-        <span class="text-capitalize text-indigo-900">{!! @$relation !!} {{ str_replace("_", " ", $module) }}</span>
-        <span class="float-right">
+	<p class="py-4 px-4 h4 mb-0">
+		<span class="text-capitalize text-indigo-900">{!! @$relation !!} {{ str_replace("_", " ", $module) }}</span>
+		<span class="float-right">
             {{ $slot }}
             <a href="{{ route('wire.create', $module) }}{{ @$parent }}" class="text-indigo-900 text-decoration-none crud_action_button text-sm text-capitalize svg_button mr-3"
                aria-pressed="true">
@@ -9,7 +9,7 @@
                 <path d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"></path>
             </svg>
                 {{ trans('wire::button_input.create') }}
-                {{ $module }}
+	            {{ $module }}
             </a>
 
             <a href="{{ route('wire.recycle', $module) }}" class="text-indigo-900 text-decoration-none crud_action_button text-sm text-capitalize svg_button">
@@ -22,8 +22,8 @@
 			    l6.422-0.003c0,0,2.742-4.27,4.277-7C31.542,20.182,31.647,19.087,31.23,18.314z"></path>
                  </svg>
                 {{ trans('wire::button_input.recycle') }}
-                {{ $module }}
+	            {{ $module }}
             </a>
         </span>
-    </p>
+	</p>
 </div>

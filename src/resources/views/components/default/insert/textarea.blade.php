@@ -17,11 +17,11 @@
 @section('script')
 	<script src="{{ asset('wire-assets/js/external/summernote-bs4.js') }}"></script>
 	<script>
-        var field_name = '{{ $key }}';
-        $('#' + field_name).summernote({
-            placeholder: '{{ str_replace("_", " ", $key) }}',
-            tabsize: 2,
-            height: 200
-        });
+		var field_name = '{{ $key }}';
+		$('#' + field_name).summernote({
+			placeholder: '{{ str_replace("_", " ", $key) }}',
+			tabsize: 2,
+			height: 200
+		});
 	</script>
 @endsection

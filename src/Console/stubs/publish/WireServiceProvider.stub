@@ -1,4 +1,4 @@
-<?php
+
 
 namespace App\Providers;
 
@@ -8,33 +8,34 @@ use Rapkit\Wire\Scripts\CacheIdentifierClasses;
 
 class WireServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function register()
-    { }
+	/**
+	 * Register services.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+	}
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->gate();
+	/**
+	 * Bootstrap services.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->gate();
 
-        CacheIdentifierClasses::checkIdentifierCache();
-    }
+		CacheIdentifierClasses::checkIdentifierCache();
+	}
 
-    /**
-     * If you have any extra logic for Wire access, you can define it here
-     */
-    public function gate()
-    {
-        Gate::define('access-wire', function ($user) {
-            return true;
-        });
-    }
+	/**
+	 * If you have any extra logic for Wire access, you can define it here
+	 */
+	public function gate()
+	{
+		Gate::define('access-wire', function ($user) {
+			return true;
+		});
+	}
 }

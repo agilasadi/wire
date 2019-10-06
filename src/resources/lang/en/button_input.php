@@ -5,13 +5,13 @@
  */
 
 return [
-    'create' => 'Create',
-    'update' => 'Update',
-    'recycle' => 'Recycle',
-    'actions' => 'Actions',
-    'image' => "Image",
-    'file' => "File",
+	'create' => 'Create',
+	'update' => 'Update',
+	'recycle' => 'Recycle',
+	'actions' => 'Actions',
+	'image' => "Image",
+	'file' => "File",
 
-    'true' => 'True',
-    'false' => 'False',
+	'true' => 'True',
+	'false' => 'False',
 ];
