@@ -100,6 +100,15 @@ If you run `php artisan identifier:cache` with no Identifier name, then it will 
 You can remove identifier list with `php artisan cache:clear` command of laravel.
 
 
+Fields for given identifier will be loaded when it's created, if there is no such model or table at time of creation, you can run ` php artisan identifier:load User`, but if the table content is changed after the creation you can run 
+
+```
+
+php artisan identifier:load User --f
+ 
+```
+
+
 
 Refer to https://github.com/rapkit/wire/wiki/Fields for more information about fields
 
