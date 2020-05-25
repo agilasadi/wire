@@ -2,8 +2,10 @@
 
 namespace App\Wire\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\View\View;
 
 class CrudController extends WireController
 {
@@ -40,8 +42,8 @@ class CrudController extends WireController
     public function __construct()
     {
         $route = request()->route('identifier');
-        if ($route && array_key_exists($route, Cache::get('identifier_classes')))
-        {
+
+        if ($route && array_key_exists($route, Cache::get('identifier_classes'))) {
             $class_name = Cache::get('identifier_classes')[$route];
             $this->identifier = new $class_name;
         }
@@ -49,24 +51,23 @@ class CrudController extends WireController
 
     /**
      * @param null $route
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index($route)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $reproduced_fields = $this->identifier->fields();
-        foreach ($reproduced_fields as $key => $value)
-        {
-            if ($value['type'] == 'belongsTo' && @$value['available_in'] && in_array('index', $value['available_in'], true))
-            {
+
+        foreach ($reproduced_fields as $key => $value) {
+            if ($value['type'] == 'belongsTo' && @$value['available_in'] && in_array('index', $value['available_in'], true)) {
                 $this->relationships = [$value['method']];
                 $reproduced_fields = $this->belongsToReproduce($reproduced_fields, $key, 'index', false);
             }
         }
         $data = $this->identifier->model::with($this->relationships)->paginate(15);
+
         return view($this->index_view)->with([
             'model' => strtolower(class_basename($this->identifier)),
             'data' => $data,
@@ -77,12 +78,11 @@ class CrudController extends WireController
 
     /**
      * @param null $route
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create($route)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $reproduced_fields = $this->reproduceIdentifier($this->identifier, 'create', false, true);
@@ -90,8 +90,8 @@ class CrudController extends WireController
             'model' => strtolower(class_basename($this->identifier)),
             'fields' => $reproduced_fields,
         ];
-        if (\Illuminate\Support\Facades\Request::get('parent') && \Illuminate\Support\Facades\Request::get('id'))
-        {
+
+        if (\Illuminate\Support\Facades\Request::get('parent') && \Illuminate\Support\Facades\Request::get('id')) {
             $response['selected'] = [
                 'key' => \Illuminate\Support\Facades\Request::input('parent'),
                 'value' => \Illuminate\Support\Facades\Request::input('id')
@@ -103,15 +103,15 @@ class CrudController extends WireController
     /**
      * @param $route
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($route, $id)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $loaded_identifier = $this->loadIdentifier($this->identifier, 'show', true, $id);
+
         return view($this->show_view, [
             'method' => 'show',
             'data' => $loaded_identifier['data'],
@@ -123,66 +123,63 @@ class CrudController extends WireController
     /**
      * @param Request $request
      * @param $route
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function store(Request $request, $route)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $validated = $this->validatedData($this->identifier, $request, "create");
-        if ($this->success === true)
-        {
+
+        if ($this->success === true) {
             $id = $this->storeAndUpload($validated);
-        }
-        else
-        {
+        } else {
             return redirect()->back()->withInput($request->all())->withErrors($validated['errors']);
         }
+
         return redirect()->route('wire.show', ['identifier' => $route, 'id' => $id]);
     }
 
     /**
      * @param $route
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function restore($route, $id)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $record = $this->identifier->model::onlyTrashed()->findOrFail($id)->restore();
-        if (!$record)
-        {
+
+        if (!$record) {
             $this->success = false;
         }
         $toast_messages = $this->toastMessage('restore');
+
         return redirect()->back()->with('toast_message', $toast_messages);
     }
 
     /**
      * @param $route
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function recycle($route)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $reproduced_fields = $this->identifier->fields();
-        foreach ($reproduced_fields as $key => $value)
-        {
-            if ($value['type'] == 'belongsTo' && @$value['available_in'] && in_array('index', $value['available_in'], true))
-            {
+
+        foreach ($reproduced_fields as $key => $value) {
+            if ($value['type'] == 'belongsTo' && @$value['available_in'] && in_array('index', $value['available_in'], true)) {
                 $this->relationships = [$value['method']];
                 $reproduced_fields = $this->belongsToReproduce($reproduced_fields, $key, 'index', false);
             }
         }
         $data = $this->identifier->model::onlyTrashed()->with($this->relationships)->paginate(15);
+
         return view($this->recycle_view)->with([
             'model' => strtolower(class_basename($this->identifier)),
             'data' => $data,
@@ -194,23 +191,20 @@ class CrudController extends WireController
     /**
      * @param $route
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function destroy($route, $id)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
-        if (\Illuminate\Support\Facades\Request::input('force_delete'))
-        {
+        if (\Illuminate\Support\Facades\Request::input('force_delete')) {
             $this->identifier->model::onlyTrashed()->findOrFail($id)->forceDelete();
-        }
-        else
-        {
+        } else {
             $this->identifier->model::findOrFail($id)->delete();
         }
         $toast_messages = $this->toastMessage('delete');
+
         return redirect()->back()->with('toast_message', $toast_messages);
     }
 
@@ -218,16 +212,16 @@ class CrudController extends WireController
      * @param $route
      * @param $id
      * @param null $parameter
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($route, $id, $parameter = null)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $reproduced_fields = $this->reproduceIdentifier($this->identifier, 'edit', false, true);
         $loaded_identifier = $this->loadIdentifier($this->identifier, 'show', true, $id);
+
         return view($this->edit_view)->with([
             'model' => strtolower(class_basename($this->identifier)),
             'fields' => $reproduced_fields,
@@ -240,28 +234,24 @@ class CrudController extends WireController
      * @param $id
      * @param Request $request
      * @param null $sub_model
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function update($route, $id, Request $request, $sub_model = null)
     {
-        if (!$this->identifier)
-        {
+        if (!$this->identifier) {
             return view('wire.views.unknown', ['parameter' => $route]);
         }
         $data = $this->identifier->model::find($id);
-        if (!$id || !$data)
-        {
+        if (!$id || !$data) {
             abort(404);
         }
         $validated = $this->validatedData($this->identifier, $request, "edit", $data);
-        if ($this->success === true)
-        {
+        if ($this->success === true) {
             $id = $this->storeAndUpload($validated, $data);
-        }
-        else
-        {
+        } else {
             return redirect()->back()->withInput($request->all())->withErrors($validated['errors']);
         }
+
         return redirect()->route('wire.show', ['identifier' => $route, 'id' => $id]);
     }
 }

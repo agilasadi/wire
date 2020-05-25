@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class WireController
+ * @package App\Wire\Http\Controllers
+ */
 class WireController extends BaseController
 {
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -33,7 +37,22 @@ class WireController extends BaseController
 	 * @param $insertable_fields , and @param $sub_objects, used when validating incoming data to insert into database
 	 * @var array
 	 */
-	public $insertable_fields = ['text', 'number', 'image', 'file', 'belongsTo', 'textarea', 'password', 'boolean', 'select'];
+	public $insertable_fields = [
+		'text',
+		'number',
+		'image',
+		'file',
+		'belongsTo',
+		'textarea',
+		'textEditor',
+		'password',
+		'boolean',
+		'select'
+	];
+
+    /**
+     * @var string[]
+     */
 	public $sub_objects = ['hasMany', 'hasOne'];
 
 	/**
@@ -49,10 +68,10 @@ class WireController extends BaseController
 	public $relationships = [];
 
 	/**
-	 * @param $action
+	 * @param string $action
 	 * @return array
 	 */
-	function toastMessage($action)
+	function toastMessage(string $action)
 	{
 		$toast_messages = [
 			[
@@ -318,7 +337,6 @@ class WireController extends BaseController
 		return $field;
 	}
 
-
 	/**
 	 * @param $data
 	 * @param $stored_data
@@ -470,6 +488,12 @@ class WireController extends BaseController
 		return $rules;
 	}
 
+    /**
+     * @param $data
+     * @param $field_key
+     * @param string $method
+     * @return mixed
+     */
 	public function passwordField($data, $field_key, $method = "create")
 	{
 		if (@$data[$field_key])
