@@ -37,7 +37,7 @@ App\Providers\WireServiceProvider::class,
 
 ```
 
-If you register it inside `config/app.php` make sure to clear config cache with `php artisan config:cache`
+If you register it inside `config/app.php` make sure to clear config cache with `php artisan config:clear`
 
 
 or inside register method of AppServiceProvider:
