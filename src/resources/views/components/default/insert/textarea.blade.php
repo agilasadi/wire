@@ -5,7 +5,8 @@
               class="form-control"
               id="{{ $key }}"
               name="{{ $key }}"
-              placeholder="{{ str_replace("_", " ", $key) }}">{{ old($key) ? old($key) : @$record }}</textarea>
+              placeholder="{{ str_replace("_", " ", $key) }}">{{ old($key) ? old($key) : @$record }}
+    </textarea>
 
     @if ($errors->has($key))
         <div class="invalid-feedback d-block">
