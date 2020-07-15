@@ -1,5 +1,5 @@
             "{{field_key}}" => [
-                "type" = "textarea",
-                "available_in" = ["create", "show", "edit"],
-                "rules" = "required"
+                "type" => "textarea",
+                "available_in" => ["create", "show", "edit"],
+                "rules" => "required"
             ],
