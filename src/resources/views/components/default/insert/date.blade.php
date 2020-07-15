@@ -1,7 +1,7 @@
 <div class="form-group">
 	<label for="{{ $key }}">{{ str_replace("_", " ", $key) }}</label>
 
-	<input type="datetime" class="form-control" id="{{ $key }}" name="{{ $key }}"
+	<input type="datetime-local" class="form-control" id="{{ $key }}" name="{{ $key }}"
 	       placeholder="{{ str_replace("_", " ", $key) }}" value="{{ old($key) ? old($key) : @$record }}">
 
 	@if ($errors->has($key))
